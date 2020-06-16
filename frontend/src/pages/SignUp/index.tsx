@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiLogOut, FiUser, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
+
+import createUser from '../../utils/createUser';
 
 import kriptoLogo from '../../assets/kriptonLogo.png';
 
@@ -10,9 +12,22 @@ import Input from '../../components/Input';
 import { Container, Content, Background, AnimationForm } from './styles';
 
 const SignUp: React.FC = () => {
-  const handleSubmit = useCallback(data => {
-    console.log(data);
-  }, []);
+  const history = useHistory();
+
+  const handleSubmit = useCallback(
+    async data => {
+      try {
+        await createUser(data);
+
+        alert('Usuário criando com sucesso');
+
+        history.push('/');
+      } catch (err) {
+        return alert(err);
+      }
+    },
+    [history]
+  );
 
   return (
     <Container>

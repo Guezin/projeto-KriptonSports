@@ -27,7 +27,7 @@ const Input: React.FC<InputProps> = ({ name, icon: Icon, ...rest }) => {
       ref: inputRef.current,
       path: 'value',
     });
-  }, []);
+  }, [fieldName, registerField]);
 
   const handleInputFocus = useCallback(() => {
     setIsFocused(true);

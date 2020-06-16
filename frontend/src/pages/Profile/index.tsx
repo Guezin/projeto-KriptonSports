@@ -8,9 +8,7 @@ import Input from '../../components/Input';
 import { Container, Content } from './styles';
 
 const Profile: React.FC = () => {
-  const handleSubmit = useCallback(data => {
-    console.log(data);
-  }, []);
+  const handleSubmit = useCallback(data => {}, []);
 
   return (
     <Container>

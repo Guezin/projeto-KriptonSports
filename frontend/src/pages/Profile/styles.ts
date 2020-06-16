@@ -1,5 +1,15 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { darken } from 'polished';
+
+const appearFromLeft = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  } to {
+    opacity: 1;
+    transform: translateX(0)
+  }
+`;
 
 export const Container = styled.div`
   header {
@@ -24,6 +34,14 @@ export const Container = styled.div`
         height: 200px;
         margin-top: 40px;
         border-radius: 50%;
+      }
+    }
+
+    @media (max-width: 585px) {
+      svg {
+        top: 58px;
+        left: 50px;
+        animation: ${appearFromLeft} 1s;
       }
     }
   }

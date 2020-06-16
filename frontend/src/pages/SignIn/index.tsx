@@ -1,18 +1,35 @@
 import React, { useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FiLogIn, FiUser, FiLock } from 'react-icons/fi';
 
+import validateSignInUser from '../../utils/validateSignInUser';
 import kriptoLogo from '../../assets/kriptonLogo.png';
 
 import { Container, Content, Background, AnimationForm } from './styles';
 
 import Input from '../../components/Input';
 
+interface SignInFormData {
+  email: string;
+  password: string;
+}
+
 const SignIn: React.FC = () => {
-  const handleSubmit = useCallback(data => {
-    console.log(data);
-  }, []);
+  const history = useHistory();
+
+  const handleSubmit = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        await validateSignInUser(data);
+
+        history.push('/dashboard');
+      } catch (err) {
+        alert(err);
+      }
+    },
+    [history]
+  );
 
   return (
     <Container>
