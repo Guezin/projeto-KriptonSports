@@ -23,15 +23,12 @@ Após clonar o projeto em sua máquina, entre no diretório frontend e faça o p
 
       npm run dev:server ou yarn dev:server
 
-
 # 4 - Para realizar o login na aplicação, utilize as seguintes credencias:
 
       email -> johndoe@email.com
       senha -> 123456
 
-# OBS: Aplicação ainda está em desenvolvimento, você também pode acessar as páginas diretamente pela rota, abaixo segue uma
-
-       lista contendo as rotas.
+# OBS: Aplicação ainda está em desenvolvimento, você também pode acessar as páginas diretamente pela rota, abaixo segue uma lista contendo as rotas.
 
        localhost:3000/          -> rota raiz do projeto;
        localhost:3000/sign-up   -> rota para criar um usuário;
