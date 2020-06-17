@@ -15,20 +15,6 @@ const createUser = async ({
   email,
   password,
 }: SignUpFormData): Promise<void> => {
-  switch (true) {
-    case name === '':
-      throw new Error('Preencha todos os campos!');
-
-    case email === '':
-      throw new Error('Preencha todos os campos!');
-
-    case password === '':
-      throw new Error('Preencha todos os campos!');
-
-    default:
-      break;
-  }
-
   const response = await api.get<IUser[]>(`/users`);
 
   const userExists = response.data.find(user => user.email === email);

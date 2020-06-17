@@ -1,9 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
 import { FiLogIn, FiUser, FiLock } from 'react-icons/fi';
+import * as Yup from 'yup';
 
+import getValidationErrors from '../../utils/getValidationErrors';
 import validateSignInUser from '../../utils/validateSignInUser';
+
 import kriptoLogo from '../../assets/kriptonLogo.png';
 
 import { Container, Content, Background, AnimationForm } from './styles';
@@ -16,26 +20,43 @@ interface SignInFormData {
 }
 
 const SignIn: React.FC = () => {
+  const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
-  const handleSubmit = useCallback(
-    async (data: SignInFormData) => {
-      try {
-        await validateSignInUser(data);
+  const handleSubmit = useCallback(async (data: SignInFormData) => {
+    try {
+      formRef.current?.setErrors({});
 
-        history.push('/dashboard');
-      } catch (err) {
-        alert(err);
+      const schema = Yup.object().shape({
+        email: Yup.string()
+          .email('Digíte um e-mail válido')
+          .required('E-mail obrigatório'),
+        password: Yup.string().required('Senha obrigatória'),
+      });
+
+      await schema.validate(data, { abortEarly: false });
+
+      await validateSignInUser(data);
+
+      history.push('/dashboard');
+    } catch (err) {
+      if (err instanceof Yup.ValidationError) {
+        const errors = getValidationErrors(err);
+
+        formRef.current?.setErrors(errors);
+
+        return;
       }
-    },
-    [history]
-  );
+
+      alert(err);
+    }
+  }, []);
 
   return (
     <Container>
       <Content>
         <AnimationForm>
-          <Form onSubmit={handleSubmit}>
+          <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu logon</h1>
 
             <Input
@@ -49,6 +70,7 @@ const SignIn: React.FC = () => {
               name="password"
               icon={FiLock}
               placeholder="Senha"
+              onChange={event => {}}
             />
 
             <button type="submit">Entrar</button>
