@@ -39,7 +39,7 @@ export const AnimationForm = styled.div`
   animation: ${appearFromLeft} 1s;
 
   form {
-    margin-top: 60px;
+    margin-top: 64px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -91,11 +91,13 @@ export const AnimationForm = styled.div`
 
 export const Background = styled.div`
   display: flex;
+  flex: 1;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 
   img {
-    margin-left: 64px;
+    width: 700px;
+    height: 512px;
   }
 
   @media (max-width: 1120px) {
