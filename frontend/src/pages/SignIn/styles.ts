@@ -92,6 +92,11 @@ export const AnimationForm = styled.div`
 export const Background = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
+
+  img {
+    margin-left: 64px;
+  }
 
   @media (max-width: 1120px) {
     img {
