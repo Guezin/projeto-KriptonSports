@@ -12,7 +12,7 @@ import { Container, Content, Calendar } from './styles';
 const stylesInput = {
   width: '332px',
   border: '1px solid #bdbdbd',
-  'background-color': '#F9F7F4',
+  backgroundColor: '#F9F7F4',
 };
 
 const Register: React.FC = () => {

@@ -30,6 +30,7 @@ const Profile: React.FC = () => {
           <Input type="email" name="email" icon={FiUser} placeholder="E-mail" />
           <Input type="text" name="name" icon={FiUser} placeholder="Nome" />
           <Input
+            containerStyle={{ marginTop: 36 }}
             type="password"
             name="old_password"
             icon={FiLock}
