@@ -1,23 +1,25 @@
 import React from 'react';
-import { IconBaseProps } from 'react-icons'
+import { IconBaseProps } from 'react-icons';
+import { Link } from 'react-router-dom';
 
-import { Container } from './styles'
+import { Container } from './styles';
 
 interface NavProps {
   name: string;
-  icon: React.ComponentType<IconBaseProps>
+  href: string;
+  icon: React.ComponentType<IconBaseProps>;
 }
 
-const Nav: React.FC<NavProps> = ({ name, icon: Icon }) => {
+const Nav: React.FC<NavProps> = ({ name, icon: Icon, href }) => {
   return (
     <Container>
-      <a href="#">
+      <Link to={href}>
         <p>{name}</p>
 
         <Icon size={20} />
-      </a>
+      </Link>
     </Container>
   );
-}
+};
 
 export default Nav;

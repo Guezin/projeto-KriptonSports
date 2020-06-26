@@ -7,33 +7,37 @@ export const Container = styled.div`
   grid-template-rows: 15vh 75vh 10vh;
 
   grid-template-areas:
-    'header header header'
+    'aside header header'
     'aside main main'
     'aside footer footer';
 `;
 
 export const Header = styled.div`
   grid-area: header;
-
-  background: #2D2B2C;
+  background: #2d2b2c;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
 
-  img {
-    width: 150px;
-    height: 60px;
-    margin-left: 40px;
-  }
-
+export const ButtonPower = styled.button`
+  padding: 4px 6px;
+  margin-left: 64px;
+  border: 0;
+  border-radius: 50%;
+  background-color: #d41313;
 `;
 
 export const UserAvatar = styled.div`
   display: flex;
   align-items: center;
 
-  margin-right: 40px;
+  margin-right: 64px;
+
+  strong {
+    margin-right: 8px;
+  }
 
   a {
     width: 80px;
@@ -45,37 +49,45 @@ export const UserAvatar = styled.div`
       width: 56px;
       height: 56px;
       border-radius: 50%;
-
     }
-
-
   }
 `;
 
 export const Aside = styled.aside`
   grid-area: aside;
 
-  background: #2D2B2C;
+  background: #2d2b2c;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 150px;
+    height: 60px;
+    margin-top: 5.3vh;
+  }
 `;
 
 export const SideNav = styled.div`
+  width: 100%;
   height: 100%;
+  margin-top: 32px;
 
   a + a {
-    margin-top: 4px;
+    margin-top: 8px;
   }
-
 `;
 
 export const Main = styled.main`
   grid-area: main;
 
-  background: #F9F7F4;
+  background: #f9f7f4;
   border-radius: 15px 0 0 15px;
 `;
 
 export const Footer = styled.footer`
   grid-area: footer;
 
-  background: #2D2B2C;
+  background: #2d2b2c;
 `;

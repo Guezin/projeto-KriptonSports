@@ -6,6 +6,7 @@ import authConfig from '@config/auth';
 import AppError from '@shared/errors/AppError';
 
 import IUsersRepository from '../repositories/IUsersRepository';
+import IEncryptedPassword from '../providers/ProvidesEncryptedPassword/models/IEncryptedPassword';
 
 interface IRequest {
   email: string;
@@ -16,7 +17,10 @@ interface IRequest {
 class CreateSessionService {
   constructor(
     @inject('UsersRepository')
-    private usersRepository: IUsersRepository
+    private usersRepository: IUsersRepository,
+
+    @inject('EncryptedPassword')
+    private encryptedPassword: IEncryptedPassword
   ) {}
 
   public async execute({ email, password }: IRequest) {
@@ -24,6 +28,15 @@ class CreateSessionService {
 
     if (!user) {
       throw new AppError('User does not exists!');
+    }
+
+    const passwordIsValid = await this.encryptedPassword.compareHash(
+      password,
+      user.password
+    );
+
+    if (!passwordIsValid) {
+      throw new AppError('Credencials email/password incorret, try again!');
     }
 
     const { secret, expiresIn } = authConfig.jwt;

@@ -5,7 +5,8 @@ import SignIn from '../pages/SignIn';
 import SingUp from '../pages/SignUp';
 
 import Profile from '../pages/Profile';
-import Dashboard from '../pages/Dashboard';
+import Home from '../pages/Home';
+import Register from '../pages/Register';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -13,7 +14,8 @@ const Routes: React.FC = () => (
     <Route path="/sign-up" component={SingUp} />
 
     <Route path="/profile" component={Profile} />
-    <Route path="/dashboard" component={Dashboard} />
+    <Route path="/home" component={Home} />
+    <Route path="/register" component={Register} />
   </Switch>
 );
 

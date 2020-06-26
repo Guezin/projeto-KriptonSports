@@ -1,14 +1,21 @@
-import React from 'react';
-
+import React, { useState, useEffect } from 'react';
+import { format } from 'date-fns';
 import Layout from '../../components/Layout';
 import calendar from '../../assets/calendar.svg';
 
 import { Container, Header, Content, InfoQtdProduct, Calendar } from './styles';
 
+const Home: React.FC = () => {
+  const [date, setDate] = useState('');
 
-const Dashboard: React.FC = () => {
+  useEffect(() => {
+    const dateFormatted = format(new Date(), "dd'/'MM'/'yyyy");
+
+    setDate(dateFormatted);
+  }, []);
+
   return (
-    <Layout userName={'Leandro Guezin Jr'}>
+    <Layout>
       <Container>
         <Header>
           <InfoQtdProduct>
@@ -17,7 +24,7 @@ const Dashboard: React.FC = () => {
           </InfoQtdProduct>
           <Calendar>
             <img src={calendar} alt="" />
-            <strong>22/06/2020</strong>
+            <strong>{date}</strong>
           </Calendar>
         </Header>
         <Content>
@@ -58,4 +65,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default Home;

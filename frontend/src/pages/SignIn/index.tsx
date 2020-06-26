@@ -8,6 +8,8 @@ import * as Yup from 'yup';
 import getValidationErrors from '../../utils/getValidationErrors';
 import validateSignInUser from '../../utils/validateSignInUser';
 
+import { useAuth } from '../../hooks/auth';
+
 import kriptoLogo from '../../assets/kriptonLogo.png';
 
 import { Container, Content, Background, AnimationForm } from './styles';
@@ -22,6 +24,7 @@ interface SignInFormData {
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
+  const { signIn } = useAuth();
 
   const handleSubmit = useCallback(async (data: SignInFormData) => {
     try {
@@ -36,9 +39,15 @@ const SignIn: React.FC = () => {
 
       await schema.validate(data, { abortEarly: false });
 
-      await validateSignInUser(data);
+      // await validateSignInUser(data);
+      const { email, password } = data;
 
-      history.push('/dashboard');
+      await signIn({
+        email,
+        password,
+      });
+
+      history.push('/home');
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
@@ -48,7 +57,7 @@ const SignIn: React.FC = () => {
         return;
       }
 
-      alert(err);
+      alert('Credenciais incorretas, tente novamente!');
     }
   }, []);
 
@@ -70,7 +79,6 @@ const SignIn: React.FC = () => {
               name="password"
               icon={FiLock}
               placeholder="Senha"
-              onChange={event => {}}
             />
 
             <button type="submit">Entrar</button>

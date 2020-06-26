@@ -3,8 +3,6 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 100%;
   height: 100%;
-
-
 `;
 
 export const Header = styled.header`
@@ -30,14 +28,13 @@ export const InfoQtdProduct = styled.div`
   justify-content: flex-end;
 
   p {
-    color: #B1B3B3;
+    color: #b1b3b3;
   }
 
   span {
     font-size: 46px;
     font-weight: 500;
   }
-
 `;
 export const Calendar = styled.div`
   color: #252222;
@@ -64,14 +61,15 @@ export const Content = styled.div`
 
   table {
     color: #252222;
-    width: 612px;;
+    width: 612px;
     padding-top: 64px;
 
     th {
       font-weight: 500;
     }
 
-    th, td {
+    th,
+    td {
       padding: 8px;
       border-bottom: 1px solid #ddd;
       text-align: center;

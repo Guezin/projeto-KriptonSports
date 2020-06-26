@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import express, { json } from 'express';
+import cors from 'cors';
 import 'express-async-errors';
 
 import '../typeorm/connectionDB';
@@ -13,6 +14,7 @@ import rateLimiter from '@shared/infra/http/middlewares/rateLimiter';
 const server = express();
 
 server.use(rateLimiter);
+server.use(cors());
 server.use(json());
 server.use(routes);
 server.use(middlewareError);

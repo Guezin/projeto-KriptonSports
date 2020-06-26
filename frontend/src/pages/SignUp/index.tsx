@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 
 import kriptoLogo from '../../assets/kriptonLogo.png';
 
+import api from '../../services/api';
+
 import getValidationErrors from '../../utils/getValidationErrors';
 import createUser from '../../utils/createUser';
 
@@ -14,11 +16,17 @@ import Input from '../../components/Input';
 
 import { Container, Content, Background, AnimationForm } from './styles';
 
+interface IUserData {
+  name: string;
+  email: string;
+  password: string;
+}
+
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
-  const handleSubmit = useCallback(async data => {
+  const handleSubmit = useCallback(async (data: IUserData) => {
     try {
       formRef.current?.setErrors({});
 
@@ -27,12 +35,21 @@ const SignUp: React.FC = () => {
         email: Yup.string()
           .email('Digíte um e-mail válido')
           .required('E-mail obrigatório'),
-        password: Yup.string().required('Senha obrigatória'),
+        password: Yup.string()
+          .min(6, 'Minímo 6 digítos')
+          .required('Senha obrigatória'),
       });
 
       await schema.validate(data, { abortEarly: false });
 
-      await createUser(data);
+      // await createUser(data);
+      const { name, email, password } = data;
+
+      await api.post('/users', {
+        name,
+        email,
+        password,
+      });
 
       alert('Usuário cadastrado com sucesso!');
 
