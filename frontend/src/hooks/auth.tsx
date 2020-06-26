@@ -2,6 +2,8 @@ import React, { createContext, useContext, useState, useCallback } from 'react';
 
 import api from '../services/api';
 
+import validateSignInUser from '../utils/validateSignInUser';
+
 const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 
 interface IUser {
@@ -34,6 +36,18 @@ const AuthProvider: React.FC = ({ children }) => {
 
     const { user, token } = data;
 
+    if (process.env.REACT_APP_DEV_SERVER === 'test') {
+      const response = await validateSignInUser({
+        email,
+        password,
+      });
+
+      if (!response) {
+        throw new Error('Credenciais email/senha incorretos, tente novamente!');
+      }
+
+      return setData(response);
+    }
     setData({ user, token });
   }, []);
 

@@ -1,6 +1,15 @@
 import api from '../services/api';
 
-import IUser from '../dtos/IUserDTO';
+interface IUserData {
+  name: string;
+  email: string;
+  password: string;
+}
+
+interface IUser {
+  user: IUserData;
+  token: string;
+}
 
 interface SignInFormData {
   email: string;
@@ -11,7 +20,7 @@ const validateSignInUser = async ({
   email,
   password,
 }: SignInFormData): Promise<IUser | undefined> => {
-  const { data } = await api.get<IUser[]>('/users');
+  const { data } = await api.get<IUserData[]>('/users');
 
   const user = data.find(_user => _user.email === email);
 
@@ -23,7 +32,7 @@ const validateSignInUser = async ({
     throw new Error('Credenciais email/senha estão incorretos!');
   }
 
-  return user;
+  return { user, token: 'aushaushaushaushauhs' };
 };
 
 export default validateSignInUser;

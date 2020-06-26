@@ -10,7 +10,6 @@ import kriptoLogo from '../../assets/kriptonLogo.png';
 import api from '../../services/api';
 
 import getValidationErrors from '../../utils/getValidationErrors';
-import createUser from '../../utils/createUser';
 
 import Input from '../../components/Input';
 
@@ -42,7 +41,6 @@ const SignUp: React.FC = () => {
 
       await schema.validate(data, { abortEarly: false });
 
-      // await createUser(data);
       const { name, email, password } = data;
 
       await api.post('/users', {

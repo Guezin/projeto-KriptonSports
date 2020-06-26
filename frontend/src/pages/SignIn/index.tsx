@@ -6,7 +6,6 @@ import { FiLogIn, FiUser, FiLock } from 'react-icons/fi';
 import * as Yup from 'yup';
 
 import getValidationErrors from '../../utils/getValidationErrors';
-import validateSignInUser from '../../utils/validateSignInUser';
 
 import { useAuth } from '../../hooks/auth';
 
@@ -39,7 +38,6 @@ const SignIn: React.FC = () => {
 
       await schema.validate(data, { abortEarly: false });
 
-      // await validateSignInUser(data);
       const { email, password } = data;
 
       await signIn({
