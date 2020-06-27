@@ -1,7 +1,10 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+
+import api from '../../services/api';
 
 import Layout from '../../components/Layout';
 import calendar from '../../assets/calendar.svg';
@@ -23,7 +26,9 @@ interface IFormData {
 }
 
 const CreateProduct: React.FC = () => {
-  const handleFormSubmit = useCallback((data: IFormData) => {
+  const formRef = useRef<FormHandles>(null);
+
+  const handleFormSubmit = useCallback(async (data: IFormData) => {
     const regex = /(-|\/)/g;
     const date = data.date.split(regex);
     const dateformatted = format(
@@ -31,6 +36,21 @@ const CreateProduct: React.FC = () => {
       'yyyy-MM-dd',
       { locale: ptBR }
     );
+
+    try {
+      const { name, product_code } = data;
+
+      await api.post('/products', {
+        name,
+        product_code,
+        date: dateformatted,
+      });
+
+      formRef.current?.reset();
+      alert('Produto cadastrado com sucesso!');
+    } catch {
+      alert('Erro ao registrar um produto!');
+    }
   }, []);
 
   return (
@@ -41,7 +61,7 @@ const CreateProduct: React.FC = () => {
           <strong>22/06/2020</strong>
         </Calendar>
         <Content>
-          <Form onSubmit={handleFormSubmit}>
+          <Form ref={formRef} onSubmit={handleFormSubmit}>
             <Input
               type="text"
               name="name"
