@@ -23,18 +23,28 @@ interface IAuthState {
 interface IAuthContextData {
   user: IUser;
   signIn(credencials: ICredencialsUser): Promise<void>;
+  signOut(): void;
 }
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<IAuthState>({} as IAuthState);
+  const [data, setData] = useState<IAuthState>(() => {
+    const token = localStorage.getItem('@KriptonSports:token');
+    const user = localStorage.getItem('@KriptonSports:user');
+
+    if (token && user) {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+
+      return { token, user: JSON.parse(user) };
+    }
+
+    return {} as IAuthState;
+  });
 
   const signIn = useCallback(async ({ email, password }) => {
     const { data } = await api.post('/sessions', {
       email,
       password,
     });
-
-    const { user, token } = data;
 
     if (process.env.REACT_APP_DEV_SERVER === 'test') {
       const response = await validateSignInUser({
@@ -48,11 +58,24 @@ const AuthProvider: React.FC = ({ children }) => {
 
       return setData(response);
     }
+
+    const { user, token } = data;
+
+    localStorage.setItem('@KriptonSports:token', token);
+    localStorage.setItem('@KriptonSports:user', JSON.stringify(user));
+
     setData({ user, token });
   }, []);
 
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@KriptonSports:token');
+    localStorage.removeItem('@KriptonSports:user');
+
+    setData({} as IAuthState);
+  }, []);
+
   return (
-    <AuthContext.Provider value={{ signIn, user: data.user }}>
+    <AuthContext.Provider value={{ signIn, signOut, user: data.user }}>
       {children}
     </AuthContext.Provider>
   );

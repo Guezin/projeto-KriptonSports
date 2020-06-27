@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiHome, FiPlus, FiPower } from 'react-icons/fi';
 
+import { useAuth } from '../../hooks/auth';
+
 import logo from '../../assets/logo.png';
 
 import {
@@ -18,10 +20,12 @@ import {
 import Nav from '../Nav';
 
 const Layout: React.FC = ({ children }) => {
+  const { signOut } = useAuth();
+
   return (
     <Container>
       <Header>
-        <ButtonPower>
+        <ButtonPower onClick={signOut}>
           <FiPower size={20} color="#fff" />
         </ButtonPower>
 
