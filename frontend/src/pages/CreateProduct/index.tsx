@@ -1,10 +1,11 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useMemo } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
 import api from '../../services/api';
+import { useDate } from '../../hooks/date';
 
 import Layout from '../../components/Layout';
 import calendar from '../../assets/calendar.svg';
@@ -27,6 +28,7 @@ interface IFormData {
 
 const CreateProduct: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const { date } = useDate();
 
   const handleFormSubmit = useCallback(async (data: IFormData) => {
     const regex = /(-|\/)/g;
@@ -58,7 +60,7 @@ const CreateProduct: React.FC = () => {
       <Container>
         <Calendar>
           <img src={calendar} alt="" />
-          <strong>22/06/2020</strong>
+          <strong>{date}</strong>
         </Calendar>
         <Content>
           <Form ref={formRef} onSubmit={handleFormSubmit}>

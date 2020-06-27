@@ -1,9 +1,12 @@
 import React from 'react';
 
 import { AuthProvider } from './auth';
+import { DateProvider } from './date';
 
 const AppProvider: React.FC = ({ children }) => (
-  <AuthProvider>{children}</AuthProvider>
+  <AuthProvider>
+    <DateProvider>{children}</DateProvider>
+  </AuthProvider>
 );
 
 export default AppProvider;

@@ -1,18 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { format } from 'date-fns';
 import Layout from '../../components/Layout';
 import calendar from '../../assets/calendar.svg';
 
+import { useDate } from '../../hooks/date';
+
 import { Container, Header, Content, InfoQtdProduct, Calendar } from './styles';
 
 const Home: React.FC = () => {
-  const [date, setDate] = useState('');
-
-  useEffect(() => {
-    const dateFormatted = format(new Date(), "dd'/'MM'/'yyyy");
-
-    setDate(dateFormatted);
-  }, []);
+  const { date } = useDate();
 
   return (
     <Layout>
