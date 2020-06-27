@@ -1,6 +1,7 @@
-import React from 'react';
-import { css } from 'styled-components';
+import React, { useCallback } from 'react';
 import { Form } from '@unform/web';
+import { format, parseISO } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 
 import Layout from '../../components/Layout';
 import calendar from '../../assets/calendar.svg';
@@ -15,7 +16,23 @@ const stylesInput = {
   backgroundColor: '#F9F7F4',
 };
 
-const Register: React.FC = () => {
+interface IFormData {
+  name: string;
+  product_code: string;
+  date: string;
+}
+
+const CreateProduct: React.FC = () => {
+  const handleFormSubmit = useCallback((data: IFormData) => {
+    const regex = /(-|\/)/g;
+    const date = data.date.split(regex);
+    const dateformatted = format(
+      parseISO(`${date[4]}-${date[2]}-${date[0]}`),
+      'yyyy-MM-dd',
+      { locale: ptBR }
+    );
+  }, []);
+
   return (
     <Layout>
       <Container>
@@ -24,22 +41,22 @@ const Register: React.FC = () => {
           <strong>22/06/2020</strong>
         </Calendar>
         <Content>
-          <Form onSubmit={() => {}}>
+          <Form onSubmit={handleFormSubmit}>
             <Input
               type="text"
-              name="product"
+              name="name"
               containerStyle={stylesInput}
               placeholder="Nome do produto"
             />
             <Input
               type="text"
-              name="product"
+              name="product_code"
               containerStyle={stylesInput}
               placeholder="Código do produto"
             />
             <Input
               type="text"
-              name="product"
+              name="date"
               containerStyle={stylesInput}
               placeholder="Data de validade DD/MM/AAAA"
             />
@@ -52,4 +69,4 @@ const Register: React.FC = () => {
   );
 };
 
-export default Register;
+export default CreateProduct;

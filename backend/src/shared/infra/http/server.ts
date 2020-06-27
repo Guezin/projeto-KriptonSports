@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import express, { json } from 'express';
 import cors from 'cors';
+import { errors } from 'celebrate';
 import 'express-async-errors';
 
 import '../typeorm/connectionDB';
@@ -17,6 +18,7 @@ server.use(rateLimiter);
 server.use(cors());
 server.use(json());
 server.use(routes);
+server.use(errors({ statusCode: 401 }));
 server.use(middlewareError);
 
 server.listen(3333, () => console.log('🚀 Server started on port 3333'));

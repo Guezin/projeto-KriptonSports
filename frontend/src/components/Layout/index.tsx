@@ -40,7 +40,7 @@ const Layout: React.FC = ({ children }) => {
 
         <SideNav>
           <Nav href="/home" name="Home" icon={FiHome} />
-          <Nav href="/register" name="Cadastrar" icon={FiPlus} />
+          <Nav href="/register-product" name="Cadastrar" icon={FiPlus} />
         </SideNav>
       </Aside>
       <Main>{children}</Main>

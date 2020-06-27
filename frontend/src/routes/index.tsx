@@ -8,7 +8,7 @@ import SingUp from '../pages/SignUp';
 
 import Profile from '../pages/Profile';
 import Home from '../pages/Home';
-import Register from '../pages/Register';
+import CreateProduct from '../pages/CreateProduct';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -17,7 +17,7 @@ const Routes: React.FC = () => (
 
     <Route path="/profile" isPrivate component={Profile} />
     <Route path="/home" isPrivate component={Home} />
-    <Route path="/register" isPrivate component={Register} />
+    <Route path="/register-product" component={CreateProduct} />
   </Switch>
 );
 
