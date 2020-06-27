@@ -3,15 +3,23 @@ import 'reflect-metadata';
 import AppError from '@shared/errors/AppError';
 
 import CreateUserService from './CreateUserService';
+import BCypt from '../providers/ProvidesEncryptedPassword/implementations/BCrypt';
 
 import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
 
-describe('CreateUser', () => {
-  it('should be able to create a new user', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const createUserService = new CreateUserService(fakeUsersRepository);
+let fakeUsersRepository: FakeUsersRepository;
+let createUser: CreateUserService;
+let encryptedPassword: BCypt;
 
-    const user = await createUserService.execute({
+describe('CreateUser', () => {
+  beforeEach(() => {
+    fakeUsersRepository = new FakeUsersRepository();
+    encryptedPassword = new BCypt();
+    createUser = new CreateUserService(fakeUsersRepository, encryptedPassword);
+  });
+
+  it('should be able to create a new user', async () => {
+    const user = await createUser.execute({
       name: 'John Doe',
       email: 'johndoe@email.com',
       password: '123456',
@@ -22,10 +30,7 @@ describe('CreateUser', () => {
   });
 
   it('should not be able to create a new user with the same e-mail', async () => {
-    const fakeUsersRepository = new FakeUsersRepository();
-    const createUserService = new CreateUserService(fakeUsersRepository);
-
-    await createUserService.execute({
+    await createUser.execute({
       name: 'John Doe',
       email: 'johndoe@email.com',
       password: '123456',
@@ -33,7 +38,7 @@ describe('CreateUser', () => {
     });
 
     await expect(
-      createUserService.execute({
+      createUser.execute({
         name: 'John Trê',
         email: 'johndoe@email.com',
         password: '123456',
