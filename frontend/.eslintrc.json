@@ -31,8 +31,8 @@
     "react-hooks/exhaustive-deps": "warn",
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
-    "import/prefer-default-export": "off",
     "no-unused-expressions": "off",
+    "import/prefer-default-export": "off",
     "import/extensions": [
       "error",
       "ignorePackages",

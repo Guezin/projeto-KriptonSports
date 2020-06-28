@@ -25,39 +25,42 @@ const SignIn: React.FC = () => {
   const history = useHistory();
   const { signIn } = useAuth();
 
-  const handleSubmit = useCallback(async (data: SignInFormData) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        email: Yup.string()
-          .email('Digíte um e-mail válido')
-          .required('E-mail obrigatório'),
-        password: Yup.string().required('Senha obrigatória'),
-      });
+        const schema = Yup.object().shape({
+          email: Yup.string()
+            .email('Digíte um e-mail válido')
+            .required('E-mail obrigatório'),
+          password: Yup.string().required('Senha obrigatória'),
+        });
 
-      await schema.validate(data, { abortEarly: false });
+        await schema.validate(data, { abortEarly: false });
 
-      const { email, password } = data;
+        const { email, password } = data;
 
-      await signIn({
-        email,
-        password,
-      });
+        await signIn({
+          email,
+          password,
+        });
 
-      history.push('/home');
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
+        history.push('/home');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
 
-        formRef.current?.setErrors(errors);
+          formRef.current?.setErrors(errors);
 
-        return;
+          return;
+        }
+
+        alert('Credenciais incorretas, tente novamente!');
       }
-
-      alert('Credenciais incorretas, tente novamente!');
-    }
-  }, []);
+    },
+    [history, signIn]
+  );
 
   return (
     <Container>

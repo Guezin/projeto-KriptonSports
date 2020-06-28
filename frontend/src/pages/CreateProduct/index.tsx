@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useMemo } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import { format, parseISO } from 'date-fns';

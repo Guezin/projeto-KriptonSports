@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from 'polished';
 
 export const Container = styled.div`
   display: grid;
@@ -27,6 +28,11 @@ export const ButtonPower = styled.button`
   border: 0;
   border-radius: 50%;
   background-color: #d41313;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: ${shade(0.1, '#d41313')};
+  }
 `;
 
 export const UserAvatar = styled.div`
@@ -49,6 +55,11 @@ export const UserAvatar = styled.div`
       width: 56px;
       height: 56px;
       border-radius: 50%;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 0.8;
+      }
     }
   }
 `;

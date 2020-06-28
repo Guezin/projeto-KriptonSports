@@ -1,7 +1,11 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { lighten } from 'polished';
 
-export const Container = styled.div`
+interface IContainerProps {
+  selected: boolean;
+}
+
+export const Container = styled.div<IContainerProps>`
   font-size: 18px;
   font-weight: 500;
   color: #f9f7f4;
@@ -14,6 +18,12 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    ${props =>
+      props.selected &&
+      css`
+        border-left: 4px solid #f9f7f4;
+      `}
 
     &:hover {
       border-left: 4px solid #f9f7f4;

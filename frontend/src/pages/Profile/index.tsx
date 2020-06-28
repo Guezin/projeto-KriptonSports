@@ -3,11 +3,15 @@ import { Link } from 'react-router-dom';
 import { FiArrowLeft, FiUser, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 
+import { useAuth } from '../../hooks/auth';
+
 import Input from '../../components/Input';
 
 import { Container, Content } from './styles';
 
 const Profile: React.FC = () => {
+  const { user } = useAuth();
+
   const handleSubmit = useCallback(data => {}, []);
 
   return (
@@ -24,7 +28,10 @@ const Profile: React.FC = () => {
         </div>
       </header>
       <Content>
-        <Form onSubmit={handleSubmit}>
+        <Form
+          initialData={{ name: user.name, email: user.email }}
+          onSubmit={handleSubmit}
+        >
           <h1>Meu Perfil</h1>
 
           <Input type="email" name="email" icon={FiUser} placeholder="E-mail" />

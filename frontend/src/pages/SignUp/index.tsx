@@ -25,44 +25,47 @@ const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
 
-  const handleSubmit = useCallback(async (data: IUserData) => {
-    try {
-      formRef.current?.setErrors({});
+  const handleSubmit = useCallback(
+    async (data: IUserData) => {
+      try {
+        formRef.current?.setErrors({});
 
-      const schema = Yup.object().shape({
-        name: Yup.string().required('Nome obrigatório'),
-        email: Yup.string()
-          .email('Digíte um e-mail válido')
-          .required('E-mail obrigatório'),
-        password: Yup.string()
-          .min(6, 'Minímo 6 digítos')
-          .required('Senha obrigatória'),
-      });
+        const schema = Yup.object().shape({
+          name: Yup.string().required('Nome obrigatório'),
+          email: Yup.string()
+            .email('Digíte um e-mail válido')
+            .required('E-mail obrigatório'),
+          password: Yup.string()
+            .min(6, 'Minímo 6 digítos')
+            .required('Senha obrigatória'),
+        });
 
-      await schema.validate(data, { abortEarly: false });
+        await schema.validate(data, { abortEarly: false });
 
-      const { name, email, password } = data;
+        const { name, email, password } = data;
 
-      await api.post('/users', {
-        name,
-        email,
-        password,
-      });
+        await api.post('/users', {
+          name,
+          email,
+          password,
+        });
 
-      alert('Usuário cadastrado com sucesso!');
+        alert('Usuário cadastrado com sucesso!');
 
-      history.push('/');
-    } catch (err) {
-      if (err instanceof Yup.ValidationError) {
-        const errors = getValidationErrors(err);
+        history.push('/');
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
 
-        formRef.current?.setErrors(errors);
+          formRef.current?.setErrors(errors);
 
-        return;
+          return;
+        }
+        alert(err);
       }
-      alert(err);
-    }
-  }, []);
+    },
+    [history]
+  );
 
   return (
     <Container>

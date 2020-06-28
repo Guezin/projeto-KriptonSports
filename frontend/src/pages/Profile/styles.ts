@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { darken } from 'polished';
+import { shade } from 'polished';
 
 const appearFromLeft = keyframes`
   from {
@@ -83,7 +83,7 @@ export const Content = styled.div`
       transition: background 0.2s;
 
       &:hover {
-        background: ${darken(0.1, '#fe1212')};
+        background: ${shade(0.2, '#fe1212')};
       }
     }
   }

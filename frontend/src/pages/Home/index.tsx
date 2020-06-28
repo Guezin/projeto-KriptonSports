@@ -1,5 +1,5 @@
 import React from 'react';
-import { format } from 'date-fns';
+
 import Layout from '../../components/Layout';
 import calendar from '../../assets/calendar.svg';
 

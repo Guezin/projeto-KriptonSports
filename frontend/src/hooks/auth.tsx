@@ -8,6 +8,7 @@ const AuthContext = createContext<IAuthContextData>({} as IAuthContextData);
 
 interface IUser {
   name: string;
+  email: string;
 }
 
 interface ICredencialsUser {
