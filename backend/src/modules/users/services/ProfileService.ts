@@ -57,7 +57,7 @@ class ProfileService {
       );
 
       if (!passwordIsValid) {
-        throw new AppError('Old password does not match, try again!');
+        throw new AppError('Old password does not match, try again.');
       }
     }
 
