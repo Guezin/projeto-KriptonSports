@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft, FiUser, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 
@@ -20,24 +20,32 @@ interface IFormData {
 }
 
 const Profile: React.FC = () => {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
+  const history = useHistory();
 
-  const handleSubmit = useCallback(async (data: IFormData) => {
-    try {
-      const { name, email, old_password, password } = data;
+  const handleSubmit = useCallback(
+    async (data: IFormData) => {
+      try {
+        const { name, email, old_password, password } = data;
 
-      const updatedUser = Object.assign(data, {
-        name,
-        email,
-        old_password,
-        password,
-      });
+        const updatedUser = Object.assign(data, {
+          name,
+          email,
+          old_password,
+          password,
+        });
 
-      const response = await api.put('/profile', updatedUser);
-    } catch (err) {
-      alert(err);
-    }
-  }, []);
+        const response = await api.put('/profile', updatedUser);
+
+        updateUser(response.data);
+
+        history.push('/home');
+      } catch (err) {
+        alert(err);
+      }
+    },
+    [history, updateUser]
+  );
 
   return (
     <Container>
