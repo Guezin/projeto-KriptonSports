@@ -3,16 +3,41 @@ import { Link } from 'react-router-dom';
 import { FiArrowLeft, FiUser, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 
+import api from '../../services/api';
+
 import { useAuth } from '../../hooks/auth';
 
 import Input from '../../components/Input';
 
 import { Container, Content } from './styles';
 
+interface IFormData {
+  name: string;
+  email: string;
+  old_password: string;
+  password: string;
+  password_confirmation: string;
+}
+
 const Profile: React.FC = () => {
   const { user } = useAuth();
 
-  const handleSubmit = useCallback(data => {}, []);
+  const handleSubmit = useCallback(async (data: IFormData) => {
+    try {
+      const { name, email, old_password, password } = data;
+
+      const updatedUser = Object.assign(data, {
+        name,
+        email,
+        old_password,
+        password,
+      });
+
+      const response = await api.put('/profile', updatedUser);
+    } catch (err) {
+      alert(err);
+    }
+  }, []);
 
   return (
     <Container>
@@ -51,7 +76,7 @@ const Profile: React.FC = () => {
           />
           <Input
             type="password"
-            name="confirmation_password"
+            name="password_confirmation"
             icon={FiLock}
             placeholder="Confirmação de senha"
           />
