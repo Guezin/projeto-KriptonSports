@@ -1,22 +1,23 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
+
+import ProfileSerivce from '@modules/users/services/ProfileService';
 
 class ProfileController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const {
-      name,
-      email,
-      old_password,
-      password,
-      password_confirmation,
-    } = request.body;
+    const { id } = request.user;
+    const { name, email, old_password, password } = request.body;
+    const profileService = container.resolve(ProfileSerivce);
 
-    return response.json({
+    const user = await profileService.execute({
+      id,
       name,
       email,
       old_password,
       password,
-      password_confirmation,
     });
+
+    return response.json(user);
   }
 }
 
