@@ -11,9 +11,9 @@ class BCrypt implements IEncryptedPassword {
 
   public async compareHash(
     password: string,
-    passowrdHash: string
+    passwordHash: string
   ): Promise<boolean> {
-    const passwordValid = await compare(password, passowrdHash);
+    const passwordValid = await compare(password, passwordHash);
 
     return passwordValid;
   }
