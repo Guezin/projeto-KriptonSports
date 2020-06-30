@@ -25,6 +25,7 @@ interface IAuthContextData {
   user: IUser;
   signIn(credencials: ICredencialsUser): Promise<void>;
   signOut(): void;
+  updateUser(user: IUser): void;
 }
 
 const AuthProvider: React.FC = ({ children }) => {
@@ -41,7 +42,7 @@ const AuthProvider: React.FC = ({ children }) => {
     return {} as IAuthState;
   });
 
-  const signIn = useCallback(async ({ email, password }) => {
+  const signIn = useCallback(async ({ email, password }): Promise<void> => {
     const { data } = await api.post('/sessions', {
       email,
       password,
@@ -68,15 +69,26 @@ const AuthProvider: React.FC = ({ children }) => {
     setData({ user, token });
   }, []);
 
-  const signOut = useCallback(() => {
+  const signOut = useCallback((): void => {
     localStorage.removeItem('@KriptonSports:token');
     localStorage.removeItem('@KriptonSports:user');
 
     setData({} as IAuthState);
   }, []);
 
+  const updateUser = useCallback(
+    (user: IUser): void => {
+      localStorage.setItem('@KriptonSports:user', JSON.stringify(user));
+
+      setData({ token: data.token, user });
+    },
+    [setData, data.token]
+  );
+
   return (
-    <AuthContext.Provider value={{ signIn, signOut, user: data.user }}>
+    <AuthContext.Provider
+      value={{ signIn, signOut, updateUser, user: data.user }}
+    >
       {children}
     </AuthContext.Provider>
   );

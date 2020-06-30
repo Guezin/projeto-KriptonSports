@@ -1,18 +1,63 @@
 import React, { useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { FiArrowLeft, FiUser, FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 
+import api from '../../services/api';
+
 import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 
 import Input from '../../components/Input';
 
 import { Container, Content } from './styles';
 
-const Profile: React.FC = () => {
-  const { user } = useAuth();
+interface IFormData {
+  name: string;
+  email: string;
+  old_password: string;
+  password: string;
+  password_confirmation: string;
+}
 
-  const handleSubmit = useCallback(data => {}, []);
+const Profile: React.FC = () => {
+  const { user, updateUser } = useAuth();
+  const { addToast } = useToast();
+  const history = useHistory();
+
+  const handleSubmit = useCallback(
+    async (data: IFormData) => {
+      try {
+        const { name, email, old_password, password } = data;
+
+        const updatedUser = Object.assign(data, {
+          name,
+          email,
+          old_password,
+          password,
+        });
+
+        const response = await api.put('/profile', updatedUser);
+
+        updateUser(response.data);
+
+        addToast({
+          type: 'success',
+          title: 'Perfil atualizado',
+          description: 'Perfil atualizado com sucesso!',
+        });
+
+        history.push('/home');
+      } catch (err) {
+        addToast({
+          type: 'error',
+          title: 'Erro ao atualizar perfil',
+          description: 'Erro na atualização do perfil, tente novamente!',
+        });
+      }
+    },
+    [history, updateUser, addToast]
+  );
 
   return (
     <Container>
@@ -51,7 +96,7 @@ const Profile: React.FC = () => {
           />
           <Input
             type="password"
-            name="confirmation_password"
+            name="password_confirmation"
             icon={FiLock}
             placeholder="Confirmação de senha"
           />
