@@ -26,7 +26,7 @@ const ToastProvider: React.FC = ({ children }) => {
 
       setMessage([...message, data]);
     },
-    []
+    [message]
   );
 
   const removeToast = useCallback((id: string) => {

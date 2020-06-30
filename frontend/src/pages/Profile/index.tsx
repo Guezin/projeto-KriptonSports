@@ -6,6 +6,7 @@ import { Form } from '@unform/web';
 import api from '../../services/api';
 
 import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 
 import Input from '../../components/Input';
 
@@ -21,6 +22,7 @@ interface IFormData {
 
 const Profile: React.FC = () => {
   const { user, updateUser } = useAuth();
+  const { addToast } = useToast();
   const history = useHistory();
 
   const handleSubmit = useCallback(
@@ -39,12 +41,22 @@ const Profile: React.FC = () => {
 
         updateUser(response.data);
 
+        addToast({
+          type: 'success',
+          title: 'Perfil atualizado',
+          description: 'Perfil atualizado com sucesso!',
+        });
+
         history.push('/home');
       } catch (err) {
-        alert(err);
+        addToast({
+          type: 'error',
+          title: 'Erro ao atualizar perfil',
+          description: 'Erro na atualização do perfil, tente novamente!',
+        });
       }
     },
-    [history, updateUser]
+    [history, updateUser, addToast]
   );
 
   return (

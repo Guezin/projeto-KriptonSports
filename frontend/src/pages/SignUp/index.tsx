@@ -8,8 +8,8 @@ import * as Yup from 'yup';
 import kriptoLogo from '../../assets/kriptonLogo.png';
 
 import api from '../../services/api';
-
 import getValidationErrors from '../../utils/getValidationErrors';
+import { useToast } from '../../hooks/toast';
 
 import Input from '../../components/Input';
 
@@ -24,6 +24,7 @@ interface IUserData {
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
+  const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: IUserData) => {
@@ -50,7 +51,11 @@ const SignUp: React.FC = () => {
           password,
         });
 
-        alert('Usuário cadastrado com sucesso!');
+        addToast({
+          type: 'success',
+          title: 'Seja bem-vindo',
+          description: 'Conta criada com sucesso, tente fazer seu logon!',
+        });
 
         history.push('/');
       } catch (err) {
@@ -61,10 +66,15 @@ const SignUp: React.FC = () => {
 
           return;
         }
-        alert(err);
+
+        addToast({
+          type: 'error',
+          title: 'Erro no cadastro',
+          description: 'Erro ao criar conta, verifique suas credenciais!',
+        });
       }
     },
-    [history]
+    [history, addToast]
   );
 
   return (

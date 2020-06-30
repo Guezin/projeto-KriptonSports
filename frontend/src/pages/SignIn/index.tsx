@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useEffect } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -46,7 +46,7 @@ const SignIn: React.FC = () => {
           password,
         });
 
-        // history.push('/home');
+        history.push('/home');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -63,7 +63,7 @@ const SignIn: React.FC = () => {
         });
       }
     },
-    [history, signIn]
+    [history, signIn, addToast]
   );
 
   return (
