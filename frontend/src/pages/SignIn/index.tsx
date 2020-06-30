@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -6,11 +6,10 @@ import { FiLogIn, FiUser, FiLock } from 'react-icons/fi';
 import * as Yup from 'yup';
 
 import getValidationErrors from '../../utils/getValidationErrors';
-
 import { useAuth } from '../../hooks/auth';
+import { useToast } from '../../hooks/toast';
 
 import kriptoLogo from '../../assets/kriptonLogo.png';
-
 import { Container, Content, Background, AnimationForm } from './styles';
 
 import Input from '../../components/Input';
@@ -24,6 +23,7 @@ const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
   const history = useHistory();
   const { signIn } = useAuth();
+  const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: SignInFormData) => {
@@ -46,7 +46,7 @@ const SignIn: React.FC = () => {
           password,
         });
 
-        history.push('/home');
+        // history.push('/home');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -56,7 +56,11 @@ const SignIn: React.FC = () => {
           return;
         }
 
-        alert('Credenciais incorretas, tente novamente!');
+        addToast({
+          type: 'error',
+          title: 'Erro ao fazer logon',
+          description: 'Credencias email/senha incorretos, Tente novamente!',
+        });
       }
     },
     [history, signIn]
