@@ -10,11 +10,11 @@ import '@shared/container';
 import routes from './routes';
 
 import middlewareError from '@shared/infra/http/middlewares/error';
-import rateLimiter from '@shared/infra/http/middlewares/rateLimiter';
+// import rateLimiter from '@shared/infra/http/middlewares/rateLimiter';
 
 const server = express();
 
-server.use(rateLimiter);
+// server.use(rateLimiter);
 server.use(cors());
 server.use(json());
 server.use(routes);
