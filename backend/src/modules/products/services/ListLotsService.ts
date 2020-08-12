@@ -1,7 +1,12 @@
 import { injectable, inject } from 'tsyringe';
 
-import Lot from '@modules/products/infra/typeorm/entities/Lot';
+import Product from '@modules/products/infra/typeorm/entities/Product';
 import ILotRepository from '../repositories/ILotRepository';
+
+interface IResponse {
+  lot: string;
+  product: Product;
+}
 
 @injectable()
 class ListLotsService {
@@ -10,7 +15,7 @@ class ListLotsService {
     private lotRepository: ILotRepository
   ) {}
 
-  public async execute(): Promise<Lot[]> {
+  public async execute(): Promise<IResponse[]> {
     const lots = await this.lotRepository.listAllLots();
 
     return lots;
