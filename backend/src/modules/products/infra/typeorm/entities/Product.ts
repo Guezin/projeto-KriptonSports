@@ -15,10 +15,16 @@ class Product {
   name: string;
 
   @Column()
-  product_code: string;
+  product_code: number;
 
-  @Column('timestamp')
-  date: Date;
+  @Column()
+  quantity: number;
+
+  @Column()
+  price: number;
+
+  @Column()
+  expiration_date: string;
 
   @CreateDateColumn()
   created_at: Date;

@@ -1,5 +1,7 @@
 export default interface IProductDTO {
   name: string;
-  product_code: string;
-  date: Date;
+  product_code: number;
+  quantity: number;
+  price: number;
+  expiration_date: string;
 }

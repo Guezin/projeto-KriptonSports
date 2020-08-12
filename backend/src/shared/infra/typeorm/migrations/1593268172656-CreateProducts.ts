@@ -21,12 +21,24 @@ export class CreateProducts1593268172656 implements MigrationInterface {
 
           {
             name: 'product_code',
-            type: 'varchar',
+            type: 'integer',
           },
 
           {
-            name: 'date',
-            type: 'timestamp',
+            name: 'quantity',
+            type: 'integer',
+          },
+
+          {
+            name: 'price',
+            type: 'decimal',
+            precision: 10,
+            scale: 2,
+          },
+
+          {
+            name: 'expiration_date',
+            type: 'date',
           },
 
           {
@@ -34,6 +46,7 @@ export class CreateProducts1593268172656 implements MigrationInterface {
             type: 'timestamp',
             default: 'now()',
           },
+
           {
             name: 'updated_at',
             type: 'timestamp',

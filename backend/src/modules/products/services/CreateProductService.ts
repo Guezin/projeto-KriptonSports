@@ -6,8 +6,15 @@ import IProductRepository from '../repositories/IProductRepository';
 
 interface IRequest {
   name: string;
-  product_code: string;
-  date: Date;
+  product_code: number;
+  quantity: number;
+  price: number;
+  expiration_date: string;
+}
+
+interface IResponse {
+  lot: string;
+  product: Product;
 }
 
 @injectable()
@@ -20,15 +27,19 @@ class CreateProductService {
   public async execute({
     name,
     product_code,
-    date,
-  }: IRequest): Promise<Product> {
-    const product = await this.productRepository.create({
+    quantity,
+    price,
+    expiration_date,
+  }: IRequest): Promise<IResponse> {
+    const { lot, product } = await this.productRepository.create({
       name,
       product_code,
-      date,
+      quantity,
+      price,
+      expiration_date,
     });
 
-    return product;
+    return { lot, product };
   }
 }
 

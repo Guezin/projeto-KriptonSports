@@ -11,8 +11,10 @@ route.post(
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
-      product_code: Joi.string().required(),
-      date: Joi.date().required(),
+      product_code: Joi.number().required(),
+      quantity: Joi.number().required(),
+      price: Joi.number().required(),
+      expiration_date: Joi.string().required(),
     }),
   }),
   productController.create
