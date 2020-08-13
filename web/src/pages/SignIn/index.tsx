@@ -32,7 +32,7 @@ const SignIn: React.FC = () => {
       </fieldset>
 
       <ForgotPassword>
-        <Link to="">Esqueci minha senha</Link>
+        <Link to="/forgot-password">Esqueci minha senha</Link>
       </ForgotPassword>
 
       <CreateAccount>
