@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useCallback } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
@@ -10,7 +10,21 @@ import kriptonLogo from '../../assets/kripton-logo.png';
 
 import { Container, ForgotPassword, CreateAccount } from './styles';
 
+interface IFormSubmitData {
+  email: string;
+  password: string;
+}
+
 const SignIn: React.FC = () => {
+  const history = useHistory();
+
+  const handleSubmit = useCallback(
+    (data: IFormSubmitData) => {
+      history.push('/home');
+    },
+    [history]
+  );
+
   return (
     <Container>
       <img src={kriptonLogo} alt="Kripton Sports Logo" />
@@ -18,7 +32,7 @@ const SignIn: React.FC = () => {
       <fieldset>
         <h1>Faça seu logon</h1>
 
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={handleSubmit}>
           <Input name="email" type="text" icon={FiMail} placeholder="E-mail" />
           <Input
             name="password"

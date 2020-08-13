@@ -17,7 +17,7 @@ export default createGlobalStyle`
   }
 
   #root {
-    background-color: var(--color-primary);
+    background-color: var(--color-background-primary);
 
     display: flex;
     align-items: center;
@@ -45,8 +45,8 @@ export default createGlobalStyle`
     --color-text-primary: #2E2A2A;
     --color-text-secondary: #F4EDE8;
     --color-text-title: #fff;
-    --color-primary: #2D2B2C;
-    --color-secondary: #202020;
+    --color-background-primary: #2D2B2C;
+    --color-background-secondary: #202020;
     --color-content-primary: #F9F7F4;
     --color-button-primary: #FE1212;
     --color-button-secondary: #10CE5C;
