@@ -31,16 +31,18 @@ const SignIn: React.FC = () => {
         </Form>
       </fieldset>
 
-      <ForgotPassword>
-        <Link to="/forgot-password">Esqueci minha senha</Link>
-      </ForgotPassword>
+      <nav>
+        <ForgotPassword>
+          <Link to="/forgot-password">Esqueci minha senha</Link>
+        </ForgotPassword>
 
-      <CreateAccount>
-        <Link to="/signup">
-          <FiLogIn size={20} color="#fff" />
-          Criar Conta
-        </Link>
-      </CreateAccount>
+        <CreateAccount>
+          <Link to="/signup">
+            <FiLogIn size={20} color="#fff" />
+            Criar Conta
+          </Link>
+        </CreateAccount>
+      </nav>
     </Container>
   );
 };

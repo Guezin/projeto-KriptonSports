@@ -29,6 +29,46 @@ export const Container = styled.div`
       }
     }
   }
+
+  @media (min-width: 750px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      width: 90%;
+    }
+
+    fieldset {
+      min-width: 80%;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    max-width: 1100px;
+
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      'logo content'
+      'logo nav';
+
+    img {
+      grid-area: logo;
+      width: 100%;
+      align-self: flex-start;
+    }
+
+    fieldset {
+      grid-area: content;
+      margin: auto;
+    }
+
+    nav {
+      grid-area: nav;
+    }
+  }
 `;
 
 export const ForgotPassword = styled.div`
@@ -38,6 +78,10 @@ export const ForgotPassword = styled.div`
   a {
     font: 500 1.6rem 'Archivo';
     color: var(--color-text-secondary);
+  }
+
+  @media (min-width: 1100px) {
+    margin-top: -6.2rem;
   }
 `;
 
