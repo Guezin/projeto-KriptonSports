@@ -1,13 +1,38 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Form } from '@unform/web';
+import { FiLogOut, FiMail } from 'react-icons/fi';
 
-import { Container } from './styles';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
 
-const ForgotPassword: React.FC = () => {
+import kriptonLogo from '../../assets/kripton-logo.png';
+
+import { Container, BackToSignIn } from './styles';
+
+const SignIn: React.FC = () => {
   return (
     <Container>
-      <h1>ForgotPassword</h1>
+      <img src={kriptonLogo} alt="Kripton Sports Logo" />
+
+      <fieldset>
+        <h1>Recuperar senha</h1>
+
+        <Form onSubmit={() => {}}>
+          <Input name="email" type="text" icon={FiMail} placeholder="E-mail" />
+
+          <Button type="submit">Recuperar</Button>
+        </Form>
+      </fieldset>
+
+      <BackToSignIn>
+        <Link to="/">
+          <FiLogOut size={20} color="#fff" />
+          Voltar para logon
+        </Link>
+      </BackToSignIn>
     </Container>
   );
 };
 
-export default ForgotPassword;
+export default SignIn;
