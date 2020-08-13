@@ -51,10 +51,8 @@ const SignIn: React.FC = () => {
         </ForgotPassword>
 
         <CreateAccount>
-          <Link to="/signup">
-            <FiLogIn size={20} color="#fff" />
-            Criar Conta
-          </Link>
+          <FiLogIn size={20} color="#fff" />
+          <Link to="/signup">Criar Conta</Link>
         </CreateAccount>
       </nav>
     </Container>

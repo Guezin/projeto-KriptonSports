@@ -88,16 +88,16 @@ export const ForgotPassword = styled.div`
 export const CreateAccount = styled.div`
   margin-top: 6.2rem;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   a {
     font: 500 1.6rem 'Archivo';
     color: var(--color-text-secondary);
+  }
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    svg {
-      margin-right: 0.8rem;
-    }
+  svg {
+    margin-right: 0.8rem;
   }
 `;

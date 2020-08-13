@@ -33,10 +33,8 @@ const SignUp: React.FC = () => {
       </fieldset>
 
       <BackToSignIn>
-        <Link to="/">
-          <FiLogOut size={20} color="#fff" />
-          Voltar para logon
-        </Link>
+        <FiLogOut size={20} color="#fff" />
+        <Link to="/">Voltar para logon</Link>
       </BackToSignIn>
     </Container>
   );

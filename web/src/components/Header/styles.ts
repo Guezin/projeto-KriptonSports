@@ -29,7 +29,7 @@ export const UserInfo = styled.div`
 
   span {
     margin-right: 1.6rem;
-    font: 600 1.6rem 'Archivo';
+    font: 500 1.6rem 'Poppins';
     color: var(--color-text-secondary);
   }
 

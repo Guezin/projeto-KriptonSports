@@ -13,12 +13,11 @@ export default createGlobalStyle`
   body,
   #root {
     height: 100vh;
+    background-color: var(--color-background-primary);
     -webkit-font-smoothing: antialiased;
   }
 
   #root {
-    background-color: var(--color-background-primary);
-
     display: flex;
     align-items: center;
     justify-content: center;

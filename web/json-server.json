@@ -1,0 +1,63 @@
+{
+  "lots": [
+    {
+      "id": 200,
+      "product": {
+        "id": "227ad331-6ce3-457a-abcd-d8c9380be5ed",
+        "name": "whey protein 100%",
+        "quantity": 10,
+        "price": 35.9,
+        "product_code": 123456,
+        "expiration_date": "20/08/2020"
+      }
+    },
+
+    {
+      "id": 300,
+      "product": {
+        "id": "82d7236b-1c3d-4a15-9899-ace7dda02bc8",
+        "name": "BCAA",
+        "quantity": 15,
+        "price": 59.9,
+        "product_code": 654321,
+        "expiration_date": "20/10/2020"
+      }
+    },
+
+    {
+      "id": 400,
+      "product": {
+        "id": "edd032a0-e6fd-49f0-aab1-63192245b6c7",
+        "name": "creatina",
+        "quantity": 20,
+        "price": 70.9,
+        "product_code": 635241,
+        "expiration_date": "22/09/2020"
+      }
+    },
+
+    {
+      "id": 500,
+      "product": {
+        "id": "318efb72-c0b0-4fc0-9a9a-1a498b530320",
+        "name": "Animal PACK",
+        "quantity": 5,
+        "price": 120,
+        "product_code": 142536,
+        "expiration_date": "05/10/2020"
+      }
+    },
+
+    {
+      "id": 600,
+      "product": {
+        "id": "2fdffbe5-2a71-4e66-a3c1-4f327046122d",
+        "name": "Dianabol",
+        "quantity": 7,
+        "price": 86.9,
+        "product_code": 968574,
+        "expiration_date": "08/12/2020"
+      }
+    }
+  ]
+}
