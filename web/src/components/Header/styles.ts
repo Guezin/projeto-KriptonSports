@@ -1,8 +1,36 @@
-import styled from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
-export const Container = styled.div`
+interface IContainerProps {
+  showMenu: boolean;
+  hideMenu: boolean;
+}
+
+interface INavProps {
+  showMenu: boolean;
+  hideMenu: boolean;
+}
+
+const showMenuAnimation = keyframes`
+  from {
+    height: 28%;
+  } to {
+    height: 90%;
+  }
+`;
+
+const hideMenuAnimation = keyframes`
+  from {
+    height: 90%;
+  } to {
+    height: 17rem;
+  }
+`;
+
+export const Container = styled.div<IContainerProps>`
   width: 100%;
+
   padding: 3.2rem 1.6rem;
+  overflow: hidden;
   background-color: var(--color-background-secondary);
 
   header {
@@ -21,6 +49,18 @@ export const Container = styled.div`
     border: 0;
     background-color: transparent;
   }
+
+  ${props =>
+    props.hideMenu &&
+    css`
+      animation: ${hideMenuAnimation} 1s ease-in forwards;
+    `}
+
+  ${props =>
+    props.showMenu &&
+    css`
+      animation: ${showMenuAnimation} 1s ease-in forwards;
+    `}
 `;
 
 export const UserInfo = styled.div`
@@ -38,4 +78,42 @@ export const UserInfo = styled.div`
     height: 6.4rem;
     border-radius: 50%;
   }
+`;
+
+const animationNav = keyframes`
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
+`;
+
+export const Nav = styled.nav<INavProps>`
+  height: calc(100% - 10rem);
+  animation: ${animationNav} 1s ease-in forwards;
+  display: none;
+
+  a {
+    width: 80%;
+    padding: 1.6rem 0;
+    font: 600 2rem 'Poppins';
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid var(--color-text-secondary);
+    text-align: center;
+  }
+
+  ${props =>
+    props.hideMenu &&
+    css`
+      display: none;
+    `}
+
+  ${props =>
+    props.showMenu &&
+    css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    `}
 `;

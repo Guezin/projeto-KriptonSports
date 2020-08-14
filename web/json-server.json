@@ -1,4 +1,15 @@
 {
+  "sessions": {
+    "user": {
+      "id": "9ff6f585-e6b9-4c5e-a3ac-576c97dfec58",
+      "name": "John Doe",
+      "email": "johndoe@email.com",
+      "password": "$2a$08$V0FS/XmweaATCZZMKiydKuavV99CL.mmjypRDBgyYuaULlkyp.bOm",
+      "manager": false,
+      "created_at": "2020-08-12T20:25:18.358Z",
+      "updated_at": "2020-08-12T20:25:18.358Z"
+    }
+  },
   "lots": [
     {
       "id": 200,
@@ -11,7 +22,6 @@
         "expiration_date": "20/08/2020"
       }
     },
-
     {
       "id": 300,
       "product": {
@@ -23,7 +33,6 @@
         "expiration_date": "20/10/2020"
       }
     },
-
     {
       "id": 400,
       "product": {
@@ -35,7 +44,6 @@
         "expiration_date": "22/09/2020"
       }
     },
-
     {
       "id": 500,
       "product": {
@@ -47,7 +55,6 @@
         "expiration_date": "05/10/2020"
       }
     },
-
     {
       "id": 600,
       "product": {

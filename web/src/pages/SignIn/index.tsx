@@ -3,6 +3,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
+import api from '../../services/api';
+
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -19,7 +21,7 @@ const SignIn: React.FC = () => {
   const history = useHistory();
 
   const handleSubmit = useCallback(
-    (data: IFormSubmitData) => {
+    async (data: IFormSubmitData) => {
       history.push('/home');
     },
     [history]

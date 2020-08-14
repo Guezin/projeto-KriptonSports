@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
 
 import logoSecondary from '../../assets/kripton-logo-secondary.png';
 
-import { Container, UserInfo } from './styles';
+import { Container, UserInfo, Nav } from './styles';
 
 const Header: React.FC = () => {
+  const [openMenu, setOpenMenu] = useState(false);
+  const [closeMenu, setCloseMenu] = useState(false);
+
+  const handleToggleMenu = useCallback(() => {
+    setOpenMenu(!openMenu);
+    setCloseMenu(openMenu);
+  }, [openMenu]);
+
   return (
-    <Container>
+    <Container showMenu={openMenu} hideMenu={closeMenu}>
       <header>
         <img src={logoSecondary} alt="Logo Kripton Sports" />
 
@@ -21,9 +30,13 @@ const Header: React.FC = () => {
         </UserInfo>
       </header>
 
-      <button type="button">
+      <button type="button" onClick={handleToggleMenu}>
         <FiMenu size={20} color="#fff" />
       </button>
+
+      <Nav showMenu={openMenu} hideMenu={closeMenu}>
+        <Link to="/home">Cadastrar</Link>
+      </Nav>
     </Container>
   );
 };
