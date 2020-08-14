@@ -35,7 +35,7 @@ const Header: React.FC = () => {
       </button>
 
       <Nav showMenu={openMenu} hideMenu={closeMenu}>
-        <Link to="/home">Cadastrar</Link>
+        <Link to="/create-product">Cadastrar</Link>
       </Nav>
     </Container>
   );

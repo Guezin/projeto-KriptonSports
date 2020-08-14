@@ -6,6 +6,7 @@ import SignUp from '../pages/SignUp';
 
 import Home from '../pages/Home';
 import ForgotPassword from '../pages/ForgotPassword';
+import CreateProduct from '../pages/CreateProduct';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -14,6 +15,7 @@ const Routes: React.FC = () => (
 
     <Route path="/home" component={Home} />
     <Route path="/forgot-password" component={ForgotPassword} />
+    <Route path="/create-product" component={CreateProduct} />
   </Switch>
 );
 
