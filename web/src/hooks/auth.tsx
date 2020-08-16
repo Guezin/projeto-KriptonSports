@@ -10,6 +10,13 @@ interface ISignInProps {
   password: string;
 }
 
+interface ISignUpProps {
+  name: string;
+  surname: string;
+  email: string;
+  password: string;
+}
+
 interface IUser {
   name: string;
   email: string;
@@ -19,6 +26,7 @@ interface IAuthProviderProps {
   user: IUser;
   token: string;
   signIn: (credencials: ISignInProps) => Promise<void>;
+  signUp: (dataUser: ISignUpProps) => Promise<void>;
 }
 
 interface IResponse {
@@ -51,8 +59,27 @@ const AuthProvider: React.FC = ({ children }) => {
     [history]
   );
 
+  const signUp = useCallback(
+    async ({ name, surname, email, password }: ISignUpProps) => {
+      try {
+        await api.post('/users', {
+          name,
+          surname,
+          email,
+          password,
+        });
+
+        alert('Cadastro realizado com sucesso, tente fazer logon!');
+        history.push('/');
+      } catch {
+        alert('Erro ao criar cadastro, verifique seus dados!');
+      }
+    },
+    [history]
+  );
+
   return (
-    <AuthContext.Provider value={{ user, token, signIn }}>
+    <AuthContext.Provider value={{ user, token, signIn, signUp }}>
       {children}
     </AuthContext.Provider>
   );

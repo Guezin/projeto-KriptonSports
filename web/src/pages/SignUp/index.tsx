@@ -1,10 +1,9 @@
 import React, { useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FiLogOut, FiUser, FiMail, FiLock } from 'react-icons/fi';
 
-import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -15,28 +14,19 @@ import { Container, BackToSignIn } from './styles';
 
 interface IFormSubmitData {
   name: string;
+  surname: string;
   email: string;
   password: string;
 }
 
 const SignUp: React.FC = () => {
-  const history = useHistory();
+  const { signUp } = useAuth();
 
   const handleSubmit = useCallback(
-    async ({ name, email, password }: IFormSubmitData) => {
-      try {
-        await api.post('/users', {
-          name,
-          email,
-          password,
-        });
-
-        history.push('/');
-      } catch {
-        alert('Erro ao criar cadastro, verifique os dados!');
-      }
+    async ({ name, surname, email, password }: IFormSubmitData) => {
+      await signUp({ name, surname, email, password });
     },
-    [history]
+    [signUp]
   );
 
   return (
@@ -48,6 +38,12 @@ const SignUp: React.FC = () => {
 
         <Form onSubmit={handleSubmit}>
           <Input name="name" type="text" icon={FiUser} placeholder="Nome" />
+          <Input
+            name="surname"
+            type="text"
+            icon={FiUser}
+            placeholder="Sobrenome"
+          />
           <Input name="email" type="text" icon={FiMail} placeholder="E-mail" />
           <Input
             name="password"

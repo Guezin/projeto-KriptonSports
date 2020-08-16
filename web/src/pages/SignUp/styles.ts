@@ -5,6 +5,7 @@ export const Container = styled.div`
 
   img {
     width: 100%;
+    margin-top: 3.2rem;
   }
 
   fieldset {
@@ -32,7 +33,7 @@ export const Container = styled.div`
 `;
 
 export const BackToSignIn = styled.div`
-  margin-top: 6.2rem;
+  padding: 3.2rem 0;
 
   display: flex;
   align-items: center;

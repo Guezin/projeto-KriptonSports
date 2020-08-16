@@ -2,6 +2,7 @@ import React, { useEffect, useState, useMemo } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
 import Header from '../../components/Header';
 import Product from '../../components/Product';
@@ -25,6 +26,7 @@ interface IResponse {
 const Home: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState<IResponse[]>([]);
+  const { token } = useAuth();
 
   const productsToBeShown = useMemo(() => {
     return products.map(product => (
@@ -34,14 +36,18 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     const loadProducts = async () => {
-      const { data } = await api.get<IResponse[]>('/lots');
+      const { data } = await api.get<IResponse[]>('/lots', {
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      });
 
       setProducts(data);
       setLoading(false);
     };
 
     loadProducts();
-  }, []);
+  }, [token]);
 
   return (
     <Container>
