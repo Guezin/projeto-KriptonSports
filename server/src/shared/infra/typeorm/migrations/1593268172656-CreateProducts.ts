@@ -38,7 +38,7 @@ export class CreateProducts1593268172656 implements MigrationInterface {
 
           {
             name: 'expiration_date',
-            type: 'date',
+            type: 'varchar',
           },
 
           {

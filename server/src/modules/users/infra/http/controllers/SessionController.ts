@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-
+import { classToClass } from 'class-transformer';
 import { container } from 'tsyringe';
 
 import CreateSessionService from '@modules/users/services/CreateSessionService';
@@ -14,10 +14,12 @@ class SessionController {
       password,
     });
 
-    return response.json({
-      user,
-      token,
-    });
+    return response.json(
+      classToClass({
+        user,
+        token,
+      })
+    );
   }
 }
 
