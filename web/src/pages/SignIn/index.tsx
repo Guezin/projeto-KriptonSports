@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
 
-import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -18,13 +18,13 @@ interface IFormSubmitData {
 }
 
 const SignIn: React.FC = () => {
-  const history = useHistory();
+  const { signIn } = useAuth();
 
   const handleSubmit = useCallback(
-    async (data: IFormSubmitData) => {
-      history.push('/home');
+    async ({ email, password }: IFormSubmitData) => {
+      await signIn({ email, password });
     },
-    [history]
+    [signIn]
   );
 
   return (
