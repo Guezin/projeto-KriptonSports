@@ -17,7 +17,8 @@ describe('Profile', () => {
 
   it('should be able updating the user profile', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
       email: 'johndoe@email.com',
       password: '123456',
     });
@@ -34,7 +35,8 @@ describe('Profile', () => {
 
   it('should not be able to update if there is no user', async () => {
     await fakeUsersRepository.create({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
       email: 'johndoe@email.com',
       password: '123456',
     });
@@ -50,7 +52,8 @@ describe('Profile', () => {
 
   it('should be able to update password', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
       email: 'johndoe@email.com',
       password: '123456',
     });
@@ -68,13 +71,15 @@ describe('Profile', () => {
 
   it('should not be able to update if there is no user', async () => {
     await fakeUsersRepository.create({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
       email: 'johndoe@email.com',
       password: '123456',
     });
 
     const user = await fakeUsersRepository.create({
-      name: 'John Trê',
+      name: 'John',
+      surname: 'Trê',
       email: 'johntre@email.com',
       password: '123456',
     });
@@ -90,7 +95,8 @@ describe('Profile', () => {
 
   it('should not be able to update if the old password is not informed', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
       email: 'johndoe@email.com',
       password: '123456',
     });
@@ -107,7 +113,8 @@ describe('Profile', () => {
 
   it('should not be able to update if the old password is wrong', async () => {
     const user = await fakeUsersRepository.create({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
       email: 'johndoe@email.com',
       password: '123456',
     });

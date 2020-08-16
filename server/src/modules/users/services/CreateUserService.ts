@@ -10,6 +10,7 @@ import IEncryptedPassowrd from '../providers/ProvidesEncryptedPassword/models/IE
 
 interface IRequest {
   name: string;
+  surname: string;
   email: string;
   password: string;
   manager?: boolean;
@@ -27,6 +28,7 @@ class CreateUserService {
 
   public async execute({
     name,
+    surname,
     email,
     password,
     manager,
@@ -41,6 +43,7 @@ class CreateUserService {
 
     const user = await this.userRepository.create({
       name,
+      surname,
       email,
       password: passwordHashed,
       manager,

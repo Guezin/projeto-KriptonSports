@@ -25,7 +25,8 @@ describe('CreateSession', () => {
 
   it('should be able to authenticate user', async () => {
     const user = await createUser.execute({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
       email: 'johndoe@email.com',
       password: '123456',
     });
@@ -41,7 +42,8 @@ describe('CreateSession', () => {
 
   it('should not be able to authenticate a user with invalid e-mail', async () => {
     await createUser.execute({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
       email: 'johndoe@email.com',
       password: '123456',
     });
@@ -56,7 +58,8 @@ describe('CreateSession', () => {
 
   it('should not allow authenticating with the invalid password', async () => {
     await createUser.execute({
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
       email: 'johndoe@email.com',
       password: '123456',
     });
