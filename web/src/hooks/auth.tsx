@@ -24,32 +24,33 @@ interface IUser {
 
 interface IAuthProviderProps {
   user: IUser;
-  token: string;
   signIn: (credencials: ISignInProps) => Promise<void>;
   signUp: (dataUser: ISignUpProps) => Promise<void>;
 }
 
-interface IResponse {
+interface IResponseAPIPost {
   token: string;
   user: IUser;
 }
 
 const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<IUser>({} as IUser);
-  const [token, setToken] = useState('');
+  // const [token, setToken] = useState('');
 
   const history = useHistory();
 
   const signIn = useCallback(
     async ({ email, password }: ISignInProps) => {
       try {
-        const { data } = await api.post<IResponse>('/sessions', {
+        const { data } = await api.post<IResponseAPIPost>('/sessions', {
           email,
           password,
         });
 
+        api.defaults.headers.authorization = `Bearer ${data.token}`;
+
         setUser(data.user);
-        setToken(data.token);
+        // setToken(data.token);
 
         history.push('/home');
       } catch {
@@ -79,7 +80,7 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 
   return (
-    <AuthContext.Provider value={{ user, token, signIn, signUp }}>
+    <AuthContext.Provider value={{ user, signIn, signUp }}>
       {children}
     </AuthContext.Provider>
   );

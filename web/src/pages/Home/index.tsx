@@ -1,53 +1,31 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
-import api from '../../services/api';
-import { useAuth } from '../../hooks/auth';
+import { useProduct } from '../../hooks/product';
 
 import Header from '../../components/Header';
 import Product from '../../components/Product';
 
 import { Container, Content } from './styles';
 
-interface IProduct {
-  id: string;
-  name: string;
-  price: number;
-  product_code: number;
-  quantity: number;
-  expiration_date: string;
-}
-
-interface IResponse {
-  id: number;
-  product: IProduct;
-}
-
 const Home: React.FC = () => {
+  const { loadProducts, products } = useProduct();
+
   const [loading, setLoading] = useState(true);
-  const [products, setProducts] = useState<IResponse[]>([]);
-  const { token } = useAuth();
 
   const productsToBeShown = useMemo(() => {
     return products.map(product => (
-      <Product key={product.id} product={product} />
+      <Product key={product.lot} product={product} />
     ));
   }, [products]);
 
   useEffect(() => {
-    const loadProducts = async () => {
-      const { data } = await api.get<IResponse[]>('/lots', {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
+    (async () => {
+      await loadProducts();
 
-      setProducts(data);
       setLoading(false);
-    };
-
-    loadProducts();
-  }, [token]);
+    })();
+  }, [loadProducts]);
 
   return (
     <Container>

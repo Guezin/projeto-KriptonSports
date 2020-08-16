@@ -2,11 +2,15 @@ import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
 
+import { useAuth } from '../../hooks/auth';
+
 import logoSecondary from '../../assets/kripton-logo-secondary.png';
 
 import { Container, UserInfo, Nav } from './styles';
 
 const Header: React.FC = () => {
+  const { user } = useAuth();
+
   const [openMenu, setOpenMenu] = useState(false);
   const [closeMenu, setCloseMenu] = useState(false);
 
@@ -21,7 +25,7 @@ const Header: React.FC = () => {
         <img src={logoSecondary} alt="Logo Kripton Sports" />
 
         <UserInfo>
-          <span>Leandro</span>
+          <span>{user.name}</span>
 
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS1DeyZNqRdLF9WiyJOo7YQW5HxbSp3F6tNQQ&usqp=CAU"

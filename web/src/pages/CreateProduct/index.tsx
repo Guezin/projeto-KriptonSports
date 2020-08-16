@@ -8,16 +8,47 @@ import {
 import { TiSortNumericallyOutline } from 'react-icons/ti';
 import { Form } from '@unform/web';
 
+import api from '../../services/api';
+
 import Header from '../../components/Header';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import { Container } from './styles';
 
+interface IFormSubmitData {
+  name: string;
+  quantity: number;
+  price: string;
+  product_code: number;
+  expiration_date: string;
+}
+
 const CreateProduct: React.FC = () => {
-  const handleSubmit = useCallback(data => {
-    console.log(data);
-  }, []);
+  const handleSubmit = useCallback(
+    async ({
+      name,
+      quantity,
+      price,
+      product_code,
+      expiration_date,
+    }: IFormSubmitData) => {
+      try {
+        await api.post('/porducts', {
+          name,
+          quantity,
+          price,
+          product_code,
+          expiration_date,
+        });
+
+        alert('Produto registrado com sucesso!');
+      } catch {
+        alert('Erro ao criar produto, verifique os dados!');
+      }
+    },
+    []
+  );
 
   return (
     <Container>
