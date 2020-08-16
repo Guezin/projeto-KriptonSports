@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiMenu } from 'react-icons/fi';
+import { RiHome3Line, RiAddLine } from 'react-icons/ri';
 
 import { useAuth } from '../../hooks/auth';
 
@@ -39,7 +40,15 @@ const Header: React.FC = () => {
       </button>
 
       <Nav showMenu={openMenu} hideMenu={closeMenu}>
-        <Link to="/create-product">Cadastrar</Link>
+        <Link to="/">
+          <RiHome3Line size={20} color="#fff" />
+          <span>Home</span>
+        </Link>
+
+        <Link to="/create-product">
+          <RiAddLine size={20} color="#fff" />
+          <span>Cadastrar</span>
+        </Link>
       </Nav>
     </Container>
   );

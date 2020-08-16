@@ -58,9 +58,9 @@ const ProductProvider: React.FC = ({ children }) => {
       try {
         const { data } = await api.post<IResponseAPIPost>('/products', {
           name,
-          quantity,
+          quantity: Number(quantity),
           price,
-          product_code,
+          product_code: Number(product_code),
           expiration_date,
         });
 

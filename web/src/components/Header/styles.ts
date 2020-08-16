@@ -100,6 +100,14 @@ export const Nav = styled.nav<INavProps>`
     color: var(--color-text-secondary);
     border-bottom: 1px solid var(--color-text-secondary);
     text-align: center;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      margin: auto;
+    }
   }
 
   ${props =>

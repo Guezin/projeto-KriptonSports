@@ -8,7 +8,7 @@ import {
 import { TiSortNumericallyOutline } from 'react-icons/ti';
 import { Form } from '@unform/web';
 
-import api from '../../services/api';
+import { useProduct } from '../../hooks/product';
 
 import Header from '../../components/Header';
 import Input from '../../components/Input';
@@ -25,6 +25,8 @@ interface IFormSubmitData {
 }
 
 const CreateProduct: React.FC = () => {
+  const product = useProduct();
+
   const handleSubmit = useCallback(
     async ({
       name,
@@ -33,21 +35,15 @@ const CreateProduct: React.FC = () => {
       product_code,
       expiration_date,
     }: IFormSubmitData) => {
-      try {
-        await api.post('/porducts', {
-          name,
-          quantity,
-          price,
-          product_code,
-          expiration_date,
-        });
-
-        alert('Produto registrado com sucesso!');
-      } catch {
-        alert('Erro ao criar produto, verifique os dados!');
-      }
+      await product.create({
+        name,
+        quantity,
+        price,
+        product_code,
+        expiration_date,
+      });
     },
-    []
+    [product]
   );
 
   return (
@@ -74,7 +70,8 @@ const CreateProduct: React.FC = () => {
             type="text"
             name="price"
             icon={RiCoinsLine}
-            placeholder="Preço R$0,00"
+            pattern="[0-9]{1,}\.[0-9]{2}"
+            placeholder="Preço R$0.00"
           />
           <Input
             type="number"
