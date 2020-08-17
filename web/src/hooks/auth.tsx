@@ -17,6 +17,15 @@ interface ISignUpProps {
   password: string;
 }
 
+interface IUpdateUserProps {
+  name: string;
+  surname: string;
+  email: string;
+  old_password?: string;
+  password?: string;
+  password_confirmation?: string;
+}
+
 interface IUser {
   name: string;
   surname: string;
@@ -27,6 +36,7 @@ interface IAuthProviderProps {
   user: IUser;
   signIn: (credencials: ISignInProps) => Promise<void>;
   signUp: (dataUser: ISignUpProps) => Promise<void>;
+  updateUser: (dataUser: IUpdateUserProps) => Promise<void>;
 }
 
 interface IResponseAPIPost {
@@ -92,8 +102,59 @@ const AuthProvider: React.FC = ({ children }) => {
     [history]
   );
 
+  const updateUser = useCallback(
+    async ({
+      name,
+      surname,
+      email,
+      old_password,
+      password,
+      password_confirmation,
+    }: IUpdateUserProps) => {
+      const userDataToUpdate = Object.assign(
+        {
+          name,
+          surname,
+          email,
+        },
+        old_password
+          ? {
+              old_password,
+              password,
+              password_confirmation,
+            }
+          : {}
+      );
+
+      try {
+        const response = await api.put<IUser>('/profile', userDataToUpdate);
+
+        localStorage.setItem(
+          '@KriptonSports:user',
+          JSON.stringify(response.data)
+        );
+
+        setData({
+          token: data.token,
+          user: response.data,
+        });
+
+        if (password) {
+          history.push('/');
+        }
+
+        alert('Atualização de perfil realizada com sucesso!');
+      } catch {
+        alert('Erro ao atualizar perfil, verifique seus dados!');
+      }
+    },
+    [data.token, history]
+  );
+
   return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signUp }}>
+    <AuthContext.Provider
+      value={{ user: data.user, signIn, signUp, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

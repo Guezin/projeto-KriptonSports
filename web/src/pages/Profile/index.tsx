@@ -10,13 +10,29 @@ import Button from '../../components/Button';
 
 import { Container, GoToBack } from './styles';
 
+interface IFormSubmitData {
+  name: string;
+  surname: string;
+  email: string;
+  old_password: string;
+  password: string;
+  password_confirmation: string;
+}
+
 const Profile: React.FC = () => {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const history = useHistory();
 
   const handleGoToBack = useCallback(() => {
     history.goBack();
   }, [history]);
+
+  const handleSubmit = useCallback(
+    async (data: IFormSubmitData) => {
+      await updateUser(data);
+    },
+    [updateUser]
+  );
 
   return (
     <Container>
@@ -39,7 +55,7 @@ const Profile: React.FC = () => {
             name: user.name,
             surname: user.surname,
           }}
-          onSubmit={() => {}}
+          onSubmit={handleSubmit}
         >
           <Input name="email" type="text" icon={FiMail} placeholder="E-mail" />
           <Input name="name" type="text" icon={FiUser} placeholder="Nome" />
@@ -51,7 +67,7 @@ const Profile: React.FC = () => {
           />
           <Input
             name="old_password"
-            type="text"
+            type="password"
             icon={FiLock}
             placeholder="Senha atual"
             containerStyle={{
@@ -60,13 +76,13 @@ const Profile: React.FC = () => {
           />
           <Input
             name="password"
-            type="text"
+            type="password"
             icon={FiLock}
             placeholder="Nova senha"
           />
           <Input
             name="password_confirmation"
-            type="text"
+            type="password"
             icon={FiLock}
             placeholder="Confirmar senha"
           />
