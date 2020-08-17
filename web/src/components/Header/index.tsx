@@ -28,10 +28,12 @@ const Header: React.FC = () => {
         <UserInfo>
           <span>{user.name}</span>
 
-          <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS1DeyZNqRdLF9WiyJOo7YQW5HxbSp3F6tNQQ&usqp=CAU"
-            alt="Avatar usuario"
-          />
+          <Link to="/profile">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS1DeyZNqRdLF9WiyJOo7YQW5HxbSp3F6tNQQ&usqp=CAU"
+              alt="Avatar usuario"
+            />
+          </Link>
         </UserInfo>
       </header>
 

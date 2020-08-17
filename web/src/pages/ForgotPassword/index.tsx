@@ -10,7 +10,7 @@ import kriptonLogo from '../../assets/kripton-logo.png';
 
 import { Container, BackToSignIn } from './styles';
 
-const SignIn: React.FC = () => {
+const ForgotPassword: React.FC = () => {
   return (
     <Container>
       <img src={kriptonLogo} alt="Kripton Sports Logo" />
@@ -33,4 +33,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default ForgotPassword;
