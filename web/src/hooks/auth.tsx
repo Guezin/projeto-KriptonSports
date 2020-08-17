@@ -36,6 +36,7 @@ interface IAuthProviderProps {
   user: IUser;
   signIn: (credencials: ISignInProps) => Promise<void>;
   signUp: (dataUser: ISignUpProps) => Promise<void>;
+  signOut: () => void;
   updateUser: (dataUser: IUpdateUserProps) => Promise<void>;
 }
 
@@ -102,6 +103,13 @@ const AuthProvider: React.FC = ({ children }) => {
     [history]
   );
 
+  const signOut = useCallback(() => {
+    localStorage.removeItem('@KriptonSports:user');
+    localStorage.removeItem('@KriptonSports:token');
+
+    setData({} as IResponseAPIPost);
+  }, []);
+
   const updateUser = useCallback(
     async ({
       name,
@@ -153,7 +161,7 @@ const AuthProvider: React.FC = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user: data.user, signIn, signUp, updateUser }}
+      value={{ user: data.user, signIn, signUp, signOut, updateUser }}
     >
       {children}
     </AuthContext.Provider>

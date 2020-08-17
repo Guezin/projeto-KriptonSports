@@ -11,6 +11,7 @@ export const Container = styled.div<IContainerProps>`
   border: 2px solid var(--color-input-border-primary);
   border-radius: 0.8rem;
   color: var(--color-input-placeholder);
+  background-color: var(--color-input-background);
 
   display: flex;
   align-items: center;

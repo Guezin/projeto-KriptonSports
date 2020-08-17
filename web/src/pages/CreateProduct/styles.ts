@@ -5,10 +5,11 @@ export const Container = styled.div`
   height: 100vh;
 
   fieldset {
+    margin-top: 0.8rem;
     border: 0;
 
     legend {
-      padding: 2rem;
+      padding: 0.8rem 2rem;
       font: 600 2.4rem 'Poppins';
       color: var(--color-text-secondary);
     }

@@ -24,7 +24,7 @@ export default createGlobalStyle`
   }
 
   h1 {
-    font: 600 3.2rem 'Poppins';
+    font: 600 3.6rem 'Poppins';
     color: var(--color-text-title);
   }
 
@@ -43,14 +43,15 @@ export default createGlobalStyle`
 
     --color-text-primary: #2E2A2A;
     --color-text-secondary: #F4EDE8;
-    --color-text-title: #fff;
+    --color-text-title: #F4EDE8;
     --color-background-primary: #2D2B2C;
     --color-background-secondary: #202020;
-    --color-content-primary: #F9F7F4;
-    --color-button-primary: #FE1212;
+    --color-content-primary: #F4EDE8;
+    --color-button-primary: #E41414;
     --color-button-secondary: #10CE5C;
     --color-button-text: #fff;
-    --color-input-border-primary: #666360;
+    --color-input-background: #262424;
+    --color-input-border-primary: #262424;
     --color-input-border-focus: #F4EDE8;
     --color-input-border-error: #FE1212;
     --color-input-placeholder: #666360;

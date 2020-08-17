@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { FiMenu } from 'react-icons/fi';
+import { FiMenu, FiPower } from 'react-icons/fi';
 import { RiHome3Line, RiAddLine } from 'react-icons/ri';
 
 import { useAuth } from '../../hooks/auth';
@@ -10,7 +10,7 @@ import logoSecondary from '../../assets/kripton-logo-secondary.png';
 import { Container, UserInfo, Nav } from './styles';
 
 const Header: React.FC = () => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   const [openMenu, setOpenMenu] = useState(false);
   const [closeMenu, setCloseMenu] = useState(false);
@@ -19,6 +19,10 @@ const Header: React.FC = () => {
     setOpenMenu(!openMenu);
     setCloseMenu(openMenu);
   }, [openMenu]);
+
+  const handleSignOut = useCallback(() => {
+    signOut();
+  }, []);
 
   return (
     <Container showMenu={openMenu} hideMenu={closeMenu}>
@@ -37,9 +41,15 @@ const Header: React.FC = () => {
         </UserInfo>
       </header>
 
-      <button type="button" onClick={handleToggleMenu}>
-        <FiMenu size={20} color="#fff" />
-      </button>
+      <main>
+        <button type="button" onClick={handleToggleMenu}>
+          <FiMenu size={20} color="#fff" />
+        </button>
+
+        <button type="button" onClick={handleSignOut}>
+          <FiPower size={20} color="#fff" />
+        </button>
+      </main>
 
       <Nav showMenu={openMenu} hideMenu={closeMenu}>
         <Link to="/home">

@@ -35,6 +35,7 @@ const Product: React.FC<IProductProps> = ({ product: prod }) => {
 
       <Content>
         <p>{prod.product.name}</p>
+        <p>R${prod.product.price}</p>
         <p>
           total:
           <span>{prod.product.quantity}</span>

@@ -5,7 +5,7 @@ export const Container = styled.div`
   height: 100%;
 
   header {
-    height: 14.8rem;
+    height: 19rem;
     background-color: var(--color-background-secondary);
 
     display: flex;
@@ -17,7 +17,7 @@ export const Container = styled.div`
       height: 20.8rem;
       border-radius: 50%;
       position: relative;
-      top: 6.4rem;
+      top: 8rem;
     }
   }
 

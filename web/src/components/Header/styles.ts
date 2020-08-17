@@ -22,14 +22,14 @@ const hideMenuAnimation = keyframes`
   from {
     height: 90%;
   } to {
-    height: 17rem;
+    height: 19rem;
   }
 `;
 
 export const Container = styled.div<IContainerProps>`
   width: 100%;
 
-  padding: 3.2rem 1.6rem;
+  padding: 3.2rem 1.6rem 1.6rem;
   overflow: hidden;
   background-color: var(--color-background-secondary);
 
@@ -44,10 +44,17 @@ export const Container = styled.div<IContainerProps>`
     }
   }
 
-  button {
-    margin: 1.6rem 1.6rem 0;
-    border: 0;
-    background-color: transparent;
+  main {
+    margin-top: 3.2rem;
+    padding: 0.8rem 1.6rem;
+
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      border: 0;
+      background-color: transparent;
+    }
   }
 
   ${props =>
