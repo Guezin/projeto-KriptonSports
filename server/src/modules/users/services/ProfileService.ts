@@ -10,6 +10,7 @@ import IEncryptedPassword from '@modules/users/providers/ProvidesEncryptedPasswo
 interface IRequest {
   id: string;
   name: string;
+  surname: string;
   email: string;
   old_password?: string;
   password?: string;
@@ -28,6 +29,7 @@ class ProfileService {
   public async execute({
     id: user_id,
     name,
+    surname,
     email,
     old_password,
     password,
@@ -66,6 +68,7 @@ class ProfileService {
     }
 
     user.name = name;
+    user.surname = surname;
     user.email = email;
 
     return await this.usersRepository.save(user);
