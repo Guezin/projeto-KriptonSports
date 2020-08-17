@@ -40,7 +40,7 @@ const Header: React.FC = () => {
       </button>
 
       <Nav showMenu={openMenu} hideMenu={closeMenu}>
-        <Link to="/">
+        <Link to="/home">
           <RiHome3Line size={20} color="#fff" />
           <span>Home</span>
         </Link>

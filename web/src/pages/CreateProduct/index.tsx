@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 import {
   RiBarcodeLine,
   RiCoinsLine,
@@ -7,6 +7,7 @@ import {
 } from 'react-icons/ri';
 import { TiSortNumericallyOutline } from 'react-icons/ti';
 import { Form } from '@unform/web';
+import { FormHandles } from '@unform/core';
 
 import { useProduct } from '../../hooks/product';
 
@@ -26,15 +27,13 @@ interface IFormSubmitData {
 
 const CreateProduct: React.FC = () => {
   const product = useProduct();
+  const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
-    async ({
-      name,
-      quantity,
-      price,
-      product_code,
-      expiration_date,
-    }: IFormSubmitData) => {
+    async (
+      { name, quantity, price, product_code, expiration_date }: IFormSubmitData,
+      { reset }
+    ) => {
       await product.create({
         name,
         quantity,
@@ -42,6 +41,8 @@ const CreateProduct: React.FC = () => {
         product_code,
         expiration_date,
       });
+
+      reset();
     },
     [product]
   );
@@ -53,7 +54,7 @@ const CreateProduct: React.FC = () => {
       <fieldset>
         <legend>Adicionar produto</legend>
 
-        <Form onSubmit={handleSubmit}>
+        <Form ref={formRef} onSubmit={handleSubmit}>
           <Input
             type="text"
             name="name"

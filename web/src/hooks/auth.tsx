@@ -34,8 +34,18 @@ interface IResponseAPIPost {
 }
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [user, setUser] = useState<IUser>({} as IUser);
-  // const [token, setToken] = useState('');
+  const [data, setData] = useState<IResponseAPIPost>(() => {
+    const user = localStorage.getItem('@KriptonSports:user');
+    const token = localStorage.getItem('@KriptonSports:token');
+
+    if (user && token) {
+      api.defaults.headers.authorization = `Bearer ${token}`;
+
+      return { token, user: JSON.parse(user) };
+    }
+
+    return {} as IResponseAPIPost;
+  });
 
   const history = useHistory();
 
@@ -47,10 +57,12 @@ const AuthProvider: React.FC = ({ children }) => {
           password,
         });
 
+        localStorage.setItem('@KriptonSports:user', JSON.stringify(data.user));
+        localStorage.setItem('@KriptonSports:token', data.token);
+
         api.defaults.headers.authorization = `Bearer ${data.token}`;
 
-        setUser(data.user);
-        // setToken(data.token);
+        setData(data);
 
         history.push('/home');
       } catch {
@@ -80,7 +92,7 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signUp }}>
+    <AuthContext.Provider value={{ user: data.user, signIn, signUp }}>
       {children}
     </AuthContext.Provider>
   );
