@@ -1,12 +1,15 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import { FiSearch, FiFilter } from 'react-icons/fi';
+import { Form } from '@unform/web';
 
 import { useProduct } from '../../hooks/product';
 
+import Input from '../../components/Input';
 import Header from '../../components/Header';
 import Product from '../../components/Product';
 
-import { Container, Content } from './styles';
+import { Container, Content, Separator } from './styles';
 
 const Products: React.FC = () => {
   const { products, loadingProducts } = useProduct();
@@ -22,7 +25,22 @@ const Products: React.FC = () => {
       <Header />
 
       <Content>
-        <h1>Produtos</h1>
+        <fieldset>
+          <legend>Produtos</legend>
+
+          <Form onSubmit={() => {}}>
+            <Input
+              type="text"
+              name="search"
+              icon={FiSearch}
+              placeholder="Buscar..."
+            />
+
+            <Separator />
+
+            <FiFilter size={24} color="#fff" />
+          </Form>
+        </fieldset>
 
         {loadingProducts ? (
           <SkeletonTheme color="#3A3638" highlightColor="#514B4E">
