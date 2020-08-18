@@ -8,12 +8,12 @@ import Product from '../../components/Product';
 
 import { Container, Content } from './styles';
 
-const Home: React.FC = () => {
+const Products: React.FC = () => {
   const { products, loadingProducts } = useProduct();
 
   const productsToBeShown = useMemo(() => {
     return products.map(product => (
-      <Product key={product.lot} product={product} />
+      <Product key={product.lot} product={product} showButtons />
     ));
   }, [products]);
 
@@ -22,7 +22,7 @@ const Home: React.FC = () => {
       <Header />
 
       <Content>
-        <h1>Home</h1>
+        <h1>Produtos</h1>
 
         {loadingProducts ? (
           <SkeletonTheme color="#3A3638" highlightColor="#514B4E">
@@ -43,4 +43,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Products;

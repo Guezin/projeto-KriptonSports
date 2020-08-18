@@ -24,7 +24,7 @@ export default createGlobalStyle`
   }
 
   h1 {
-    font: 600 3.6rem 'Poppins';
+    font: 600 2.4rem 'Poppins';
     color: var(--color-text-title);
   }
 
@@ -34,7 +34,7 @@ export default createGlobalStyle`
   }
 
   button {
-    font: 600 1.8rem 'Poppins';
+    font: 600 1.6rem 'Poppins';
     cursor: pointer;
   }
 
@@ -50,6 +50,8 @@ export default createGlobalStyle`
     --color-button-primary: #E41414;
     --color-button-secondary: #10CE5C;
     --color-button-text: #fff;
+    --color-button-edit: #1D68D8;
+    --color-button-delete: #E41414;
     --color-input-background: #262424;
     --color-input-border-primary: #262424;
     --color-input-border-focus: #F4EDE8;

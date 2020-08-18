@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiMenu, FiPower } from 'react-icons/fi';
-import { RiHome3Line, RiAddLine } from 'react-icons/ri';
+import { RiHome3Line, RiAddLine, RiBarcodeLine } from 'react-icons/ri';
 
 import { useAuth } from '../../hooks/auth';
 
@@ -22,7 +22,7 @@ const Header: React.FC = () => {
 
   const handleSignOut = useCallback(() => {
     signOut();
-  }, []);
+  }, [signOut]);
 
   return (
     <Container showMenu={openMenu} hideMenu={closeMenu}>
@@ -60,6 +60,11 @@ const Header: React.FC = () => {
         <Link to="/create-product">
           <RiAddLine size={20} color="#fff" />
           <span>Cadastrar</span>
+        </Link>
+
+        <Link to="/products">
+          <RiBarcodeLine size={20} color="#fff" />
+          <span>Produtos</span>
         </Link>
       </Nav>
     </Container>

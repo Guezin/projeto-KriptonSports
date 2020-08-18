@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useCallback, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useCallback,
+  useState,
+  useEffect,
+} from 'react';
 
 import api from '../services/api';
 
@@ -39,13 +45,14 @@ interface IResponseAPIPost {
 }
 
 interface IProductProviderProps {
-  loadProducts: () => Promise<void>;
+  loadingProducts: boolean;
   products: IProductInfo[];
   create: (productData: Omit<IProduct, 'id'>) => Promise<void>;
 }
 
 const ProductProvider: React.FC = ({ children }) => {
   const [products, setProducts] = useState<IProductInfo[]>([]);
+  const [loadingProducts, setLoadingProducts] = useState(true);
 
   const create = useCallback(
     async ({
@@ -74,21 +81,24 @@ const ProductProvider: React.FC = ({ children }) => {
     []
   );
 
-  const loadProducts = useCallback(async () => {
-    const { data } = await api.get<IResponseAPIGet[]>('/lots');
+  useEffect(() => {
+    (async () => {
+      const { data } = await api.get<IResponseAPIGet[]>('/lots');
 
-    const result = data.map(item => {
-      return {
-        lot: item.id,
-        product: item.product,
-      };
-    });
+      const result = data.map(item => {
+        return {
+          lot: item.id,
+          product: item.product,
+        };
+      });
 
-    setProducts(result);
+      setProducts(result);
+      setLoadingProducts(false);
+    })();
   }, []);
 
   return (
-    <ProductContext.Provider value={{ create, loadProducts, products }}>
+    <ProductContext.Provider value={{ create, products, loadingProducts }}>
       {children}
     </ProductContext.Provider>
   );
