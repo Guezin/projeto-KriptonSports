@@ -16,8 +16,8 @@ const HeaderMobile: React.FC = () => {
   const [closeMenu, setCloseMenu] = useState(false);
 
   const handleToggleMenu = useCallback(() => {
-    setOpenMenu(!openMenu);
     setCloseMenu(openMenu);
+    setOpenMenu(!openMenu);
   }, [openMenu]);
 
   const handleSignOut = useCallback(() => {

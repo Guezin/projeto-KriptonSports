@@ -12,23 +12,24 @@ interface INavProps {
 
 const showMenuAnimation = keyframes`
   from {
-    height: 28%;
+    height: 18.2rem;
   } to {
-    height: 90%;
+    height: 51.2rem;
   }
 `;
 
 const hideMenuAnimation = keyframes`
   from {
-    height: 90%;
+    height: 51.2rem;
   } to {
-    height: 19rem;
+    height: 18.2rem;
   }
 `;
 
 export const Container = styled.div<IContainerProps>`
   width: 100%;
-  padding: 3.2rem 1.6rem 1.6rem;
+  height: 18.2rem;
+  padding: 3.2rem 1.6rem;
   background-color: var(--color-background-secondary);
 
   header {
@@ -90,16 +91,23 @@ export const UserInfo = styled.div`
 `;
 
 const animationNav = keyframes`
-  from {
+  0% {
     opacity: 0;
-  } to {
+  }
+  25% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
     opacity: 1;
   }
 `;
 
 export const Nav = styled.nav<INavProps>`
   height: calc(100% - 10rem);
-  animation: ${animationNav} 1s ease-in forwards;
+  animation: ${animationNav} 2s ease-in forwards;
   display: none;
 
   a {
