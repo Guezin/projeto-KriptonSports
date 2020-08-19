@@ -9,7 +9,7 @@ import logoSecondary from '../../assets/kripton-logo-secondary.png';
 
 import { Container, UserInfo, Nav } from './styles';
 
-const Header: React.FC = () => {
+const HeaderMobile: React.FC = () => {
   const { user, signOut } = useAuth();
 
   const [openMenu, setOpenMenu] = useState(false);
@@ -71,4 +71,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default HeaderMobile;

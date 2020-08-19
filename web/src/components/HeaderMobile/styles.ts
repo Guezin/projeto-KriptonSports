@@ -28,9 +28,7 @@ const hideMenuAnimation = keyframes`
 
 export const Container = styled.div<IContainerProps>`
   width: 100%;
-
   padding: 3.2rem 1.6rem 1.6rem;
-  overflow: hidden;
   background-color: var(--color-background-secondary);
 
   header {
@@ -68,6 +66,10 @@ export const Container = styled.div<IContainerProps>`
     css`
       animation: ${showMenuAnimation} 1s ease-in forwards;
     `}
+
+  @media(min-width: 1020px) {
+    display: none;
+  }
 `;
 
 export const UserInfo = styled.div`

@@ -5,8 +5,8 @@ import { Form } from '@unform/web';
 
 import { useProduct } from '../../hooks/product';
 
+import Layout from '../../components/Layout';
 import Input from '../../components/Input';
-import Header from '../../components/Header';
 import Product from '../../components/Product';
 
 import { Container, Content, Separator } from './styles';
@@ -21,43 +21,43 @@ const Products: React.FC = () => {
   }, [products]);
 
   return (
-    <Container>
-      <Header />
+    <Layout>
+      <Container>
+        <Content>
+          <fieldset>
+            <legend>Produtos</legend>
 
-      <Content>
-        <fieldset>
-          <legend>Produtos</legend>
+            <Form onSubmit={() => {}}>
+              <Input
+                type="text"
+                name="search"
+                icon={FiSearch}
+                placeholder="Buscar..."
+              />
 
-          <Form onSubmit={() => {}}>
-            <Input
-              type="text"
-              name="search"
-              icon={FiSearch}
-              placeholder="Buscar..."
-            />
+              <Separator />
 
-            <Separator />
+              <FiFilter size={24} color="#fff" />
+            </Form>
+          </fieldset>
 
-            <FiFilter size={24} color="#fff" />
-          </Form>
-        </fieldset>
-
-        {loadingProducts ? (
-          <SkeletonTheme color="#3A3638" highlightColor="#514B4E">
-            <Skeleton
-              count={7}
-              height={80}
-              style={{
-                marginTop: 16,
-                borderRadius: 8,
-              }}
-            />
-          </SkeletonTheme>
-        ) : (
-          productsToBeShown
-        )}
-      </Content>
-    </Container>
+          {loadingProducts ? (
+            <SkeletonTheme color="#3A3638" highlightColor="#514B4E">
+              <Skeleton
+                count={7}
+                height={80}
+                style={{
+                  marginTop: 16,
+                  borderRadius: 8,
+                }}
+              />
+            </SkeletonTheme>
+          ) : (
+            productsToBeShown
+          )}
+        </Content>
+      </Container>
+    </Layout>
   );
 };
 

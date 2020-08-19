@@ -11,7 +11,7 @@ import { FormHandles } from '@unform/core';
 
 import { useProduct } from '../../hooks/product';
 
-import Header from '../../components/Header';
+import Layout from '../../components/Layout';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -48,49 +48,49 @@ const CreateProduct: React.FC = () => {
   );
 
   return (
-    <Container>
-      <Header />
+    <Layout>
+      <Container>
+        <fieldset>
+          <legend>Adicionar produto</legend>
 
-      <fieldset>
-        <legend>Adicionar produto</legend>
+          <Form ref={formRef} onSubmit={handleSubmit}>
+            <Input
+              type="text"
+              name="name"
+              icon={RiStore3Line}
+              placeholder="Nome"
+            />
+            <Input
+              type="number"
+              name="quantity"
+              icon={TiSortNumericallyOutline}
+              placeholder="Quantidade"
+            />
+            <Input
+              type="text"
+              name="price"
+              icon={RiCoinsLine}
+              pattern="[0-9]{1,}\.[0-9]{2}"
+              placeholder="Preço R$0.00"
+            />
+            <Input
+              type="number"
+              name="product_code"
+              icon={RiBarcodeLine}
+              placeholder="Código de barras"
+            />
+            <Input
+              type="text"
+              name="expiration_date"
+              icon={RiCalendar2Line}
+              placeholder="Validade dd/mm/aaaa"
+            />
 
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <Input
-            type="text"
-            name="name"
-            icon={RiStore3Line}
-            placeholder="Nome"
-          />
-          <Input
-            type="number"
-            name="quantity"
-            icon={TiSortNumericallyOutline}
-            placeholder="Quantidade"
-          />
-          <Input
-            type="text"
-            name="price"
-            icon={RiCoinsLine}
-            pattern="[0-9]{1,}\.[0-9]{2}"
-            placeholder="Preço R$0.00"
-          />
-          <Input
-            type="number"
-            name="product_code"
-            icon={RiBarcodeLine}
-            placeholder="Código de barras"
-          />
-          <Input
-            type="text"
-            name="expiration_date"
-            icon={RiCalendar2Line}
-            placeholder="Validade dd/mm/aaaa"
-          />
-
-          <Button type="submit">Adicionar</Button>
-        </Form>
-      </fieldset>
-    </Container>
+            <Button type="submit">Adicionar</Button>
+          </Form>
+        </fieldset>
+      </Container>
+    </Layout>
   );
 };
 

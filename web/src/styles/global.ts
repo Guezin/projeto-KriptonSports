@@ -7,6 +7,7 @@ export default createGlobalStyle`
     outline: 0;
     box-sizing: border-box;
     text-decoration: none;
+    list-style: none;
   }
 
   html,
@@ -15,12 +16,6 @@ export default createGlobalStyle`
     height: 100vh;
     background-color: var(--color-background-primary);
     -webkit-font-smoothing: antialiased;
-  }
-
-  #root {
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 
   h1 {

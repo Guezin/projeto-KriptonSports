@@ -3,7 +3,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import { useProduct } from '../../hooks/product';
 
-import Header from '../../components/Header';
+import Layout from '../../components/Layout';
 import Product from '../../components/Product';
 
 import { Container, Content } from './styles';
@@ -18,28 +18,28 @@ const Home: React.FC = () => {
   }, [products]);
 
   return (
-    <Container>
-      <Header />
+    <Layout>
+      <Container>
+        <Content>
+          <h1>Home</h1>
 
-      <Content>
-        <h1>Home</h1>
-
-        {loadingProducts ? (
-          <SkeletonTheme color="#3A3638" highlightColor="#514B4E">
-            <Skeleton
-              count={7}
-              height={80}
-              style={{
-                marginTop: 16,
-                borderRadius: 8,
-              }}
-            />
-          </SkeletonTheme>
-        ) : (
-          productsToBeShown
-        )}
-      </Content>
-    </Container>
+          {loadingProducts ? (
+            <SkeletonTheme color="#3A3638" highlightColor="#514B4E">
+              <Skeleton
+                count={7}
+                height={80}
+                style={{
+                  marginTop: 16,
+                  borderRadius: 8,
+                }}
+              />
+            </SkeletonTheme>
+          ) : (
+            productsToBeShown
+          )}
+        </Content>
+      </Container>
+    </Layout>
   );
 };
 
