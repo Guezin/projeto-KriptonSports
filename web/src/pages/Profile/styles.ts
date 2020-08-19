@@ -26,9 +26,11 @@ export const Container = styled.div`
     border: 0;
     margin: 8rem auto 2.4rem;
 
-    h1 {
+    legend {
       padding: 3.2rem 0;
+      font: 600 2.4rem 'Poppins';
       text-align: start;
+      color: var(--color-text-title);
     }
 
     form {
@@ -51,7 +53,7 @@ export const GoToBack = styled.button`
   border: none;
   background-color: transparent;
   position: relative;
-  right: 5.4rem;
+  right: 15%;
 
   display: flex;
   align-items: center;

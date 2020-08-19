@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 80vw;
+  width: 80%;
 
   img {
     width: 100%;
@@ -10,9 +10,11 @@ export const Container = styled.div`
   fieldset {
     border: 0;
 
-    h1 {
+    legend {
       margin-bottom: 3.2rem;
       text-align: center;
+      font: 600 2.4rem 'Poppins';
+      color: var(--color-text-title);
     }
 
     form {

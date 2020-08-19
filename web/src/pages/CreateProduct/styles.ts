@@ -1,28 +1,28 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 
   fieldset {
-    margin-top: 0.8rem;
+    width: 90%;
+    margin: 3.2rem auto;
     border: 0;
 
     legend {
-      padding: 0.8rem 2rem;
       font: 600 2.4rem 'Poppins';
       color: var(--color-text-secondary);
     }
 
     form {
-      padding: 2rem;
+      margin: 2.4rem auto 0.8rem;
 
       div + div {
         margin-top: 0.8rem;
       }
 
       button {
-        margin-top: 0.8rem;
+        margin-top: 1.6rem;
       }
     }
   }

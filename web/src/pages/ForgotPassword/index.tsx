@@ -16,7 +16,7 @@ const ForgotPassword: React.FC = () => {
       <img src={kriptonLogo} alt="Kripton Sports Logo" />
 
       <fieldset>
-        <h1>Recuperar senha</h1>
+        <legend>Recuperar senha</legend>
 
         <Form onSubmit={() => {}}>
           <Input name="email" type="text" icon={FiMail} placeholder="E-mail" />

@@ -47,7 +47,7 @@ const Profile: React.FC = () => {
       </header>
 
       <fieldset>
-        <h1>Meu perfil</h1>
+        <legend>Meu perfil</legend>
 
         <Form
           initialData={{
