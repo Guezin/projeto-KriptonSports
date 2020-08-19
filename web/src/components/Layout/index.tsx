@@ -1,22 +1,30 @@
 import React from 'react';
 
+import logoSecondary from '../../assets/kripton-logo-secondary.png';
+
 import HeaderMobile from '../HeaderMobile';
 import HeaderDesktop from '../HeaderDesktop';
 import NavBarDesktop from '../NavBarDesktop';
 
-import { Container, Content } from './styles';
+import { Container, LogoContainer, Content } from './styles';
 
 const Layout: React.FC = ({ children }) => {
   return (
     <Container>
-      <HeaderMobile />
-      <HeaderDesktop />
+      <header>
+        <HeaderMobile />
+        <HeaderDesktop />
+      </header>
 
-      <Content>
+      <LogoContainer>
+        <img src={logoSecondary} alt="Logo Kripton Sports" />
+      </LogoContainer>
+
+      <aside>
         <NavBarDesktop />
+      </aside>
 
-        {children}
-      </Content>
+      <Content>{children}</Content>
     </Container>
   );
 };

@@ -12,27 +12,16 @@ export const Container = styled.div`
     align-items: center;
     justify-content: space-between;
 
-    > img {
-      width: 14rem;
-      height: 6rem;
+    button {
+      margin-left: 2rem;
+      border: 0;
+      background: none;
     }
   }
 
   @media (min-width: 1020px) {
     display: block;
-  }
-`;
-
-export const Content = styled.div`
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: space-between;
-
-  button {
-    margin-left: 6.4rem;
-    border: 0;
-    background: none;
+    grid-area: header;
   }
 `;
 

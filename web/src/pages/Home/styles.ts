@@ -6,5 +6,5 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   max-width: 90%;
-  margin: 1.6rem auto;
+  margin: 3.2rem auto 1.6rem;
 `;

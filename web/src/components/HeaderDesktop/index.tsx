@@ -4,9 +4,7 @@ import { FiPower } from 'react-icons/fi';
 
 import { useAuth } from '../../hooks/auth';
 
-import logoSecondary from '../../assets/kripton-logo-secondary.png';
-
-import { Container, Content, UserInfo } from './styles';
+import { Container, UserInfo } from './styles';
 
 const HeaderDesktop: React.FC = () => {
   const { user, signOut } = useAuth();
@@ -18,24 +16,20 @@ const HeaderDesktop: React.FC = () => {
   return (
     <Container>
       <header>
-        <img src={logoSecondary} alt="Logo Kripton Sports" />
+        <button type="button" onClick={handleSignOut}>
+          <FiPower size={20} color="#fff" />
+        </button>
 
-        <Content>
-          <button type="button" onClick={handleSignOut}>
-            <FiPower size={20} color="#fff" />
-          </button>
+        <UserInfo>
+          <span>{user.name}</span>
 
-          <UserInfo>
-            <span>{user.name}</span>
-
-            <Link to="/profile">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS1DeyZNqRdLF9WiyJOo7YQW5HxbSp3F6tNQQ&usqp=CAU"
-                alt="Avatar usuario"
-              />
-            </Link>
-          </UserInfo>
-        </Content>
+          <Link to="/profile">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS1DeyZNqRdLF9WiyJOo7YQW5HxbSp3F6tNQQ&usqp=CAU"
+              alt="Avatar usuario"
+            />
+          </Link>
+        </UserInfo>
       </header>
     </Container>
   );
