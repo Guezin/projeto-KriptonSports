@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FiMenu, FiPower } from 'react-icons/fi';
-import { RiHome3Line, RiAddLine, RiBarcodeLine } from 'react-icons/ri';
 
 import { useAuth } from '../../hooks/auth';
 

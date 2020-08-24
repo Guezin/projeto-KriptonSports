@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { FiCalendar, FiTrash2, FiEdit3 } from 'react-icons/fi';
+
+import ModalEditProduct from '../ModalEditProduct';
 
 import { Container, ContainerButtons, Content } from './styles';
 
@@ -21,6 +23,12 @@ interface IProductProps {
 }
 
 const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const toggleEditModal = useCallback(() => {
+    setModalOpen(!modalOpen);
+  }, [modalOpen]);
+
   return (
     <Container>
       <header>
@@ -31,7 +39,7 @@ const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
 
         {showButtons ? (
           <ContainerButtons>
-            <button type="button">
+            <button type="button" onClick={toggleEditModal}>
               <FiEdit3 size={20} color="#fff" />
             </button>
 
@@ -64,6 +72,12 @@ const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
           unid.
         </p>
       </Content>
+
+      <ModalEditProduct
+        isOpen={modalOpen}
+        setIsOpen={toggleEditModal}
+        editingProduct={prod.product}
+      />
     </Container>
   );
 };

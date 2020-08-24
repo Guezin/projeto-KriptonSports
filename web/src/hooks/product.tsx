@@ -12,7 +12,7 @@ const ProductContext = createContext<IProductProviderProps>(
   {} as IProductProviderProps
 );
 
-interface IProduct {
+export interface IProduct {
   id: string;
   name: string;
   quantity: number;
@@ -48,6 +48,7 @@ interface IProductProviderProps {
   loadingProducts: boolean;
   products: IProductInfo[];
   create: (productData: Omit<IProduct, 'id'>) => Promise<void>;
+  update: (productData: IProduct) => Promise<void>;
 }
 
 const ProductProvider: React.FC = ({ children }) => {
@@ -81,6 +82,10 @@ const ProductProvider: React.FC = ({ children }) => {
     []
   );
 
+  const update = useCallback(async (product: IProduct) => {
+    console.log(product);
+  }, []);
+
   useEffect(() => {
     (async () => {
       const { data } = await api.get<IResponseAPIGet[]>('/lots');
@@ -98,7 +103,9 @@ const ProductProvider: React.FC = ({ children }) => {
   }, []);
 
   return (
-    <ProductContext.Provider value={{ create, products, loadingProducts }}>
+    <ProductContext.Provider
+      value={{ create, update, products, loadingProducts }}
+    >
       {children}
     </ProductContext.Provider>
   );
