@@ -7,7 +7,9 @@ import { useAuth } from '../../hooks/auth';
 
 import logoSecondary from '../../assets/kripton-logo-secondary.png';
 
-import { Container, UserInfo, Nav } from './styles';
+import NavBarMobile from '../../components/NavBarMobile';
+
+import { Container, UserInfo } from './styles';
 
 const HeaderMobile: React.FC = () => {
   const { user, signOut } = useAuth();
@@ -51,22 +53,7 @@ const HeaderMobile: React.FC = () => {
         </button>
       </main>
 
-      <Nav showMenu={openMenu} hideMenu={closeMenu}>
-        <Link to="/home">
-          <RiHome3Line size={20} color="#fff" />
-          <span>Home</span>
-        </Link>
-
-        <Link to="/create-product">
-          <RiAddLine size={20} color="#fff" />
-          <span>Cadastrar</span>
-        </Link>
-
-        <Link to="/products">
-          <RiBarcodeLine size={20} color="#fff" />
-          <span>Produtos</span>
-        </Link>
-      </Nav>
+      <NavBarMobile showMenu={openMenu} />
     </Container>
   );
 };

@@ -18,6 +18,12 @@ export default createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   }
 
+  #root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   h1 {
     font: 600 2.4rem 'Poppins';
     color: var(--color-text-title);

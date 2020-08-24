@@ -44,8 +44,8 @@ export const Container = styled.div`
     }
   }
 
-  @media (min-width: 1100px) {
-    max-width: 1100px;
+  @media (min-width: 1020px) {
+    max-width: 1020px;
 
     display: grid;
     grid-template-rows: 1fr 1fr;

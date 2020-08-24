@@ -5,11 +5,6 @@ interface IContainerProps {
   hideMenu: boolean;
 }
 
-interface INavProps {
-  showMenu: boolean;
-  hideMenu: boolean;
-}
-
 const showMenuAnimation = keyframes`
   from {
     height: 18.2rem;
@@ -88,57 +83,4 @@ export const UserInfo = styled.div`
     height: 6.4rem;
     border-radius: 50%;
   }
-`;
-
-const animationNav = keyframes`
-  0% {
-    opacity: 0;
-  }
-  25% {
-    opacity: 0;
-  }
-  75% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-`;
-
-export const Nav = styled.nav<INavProps>`
-  height: calc(100% - 10rem);
-  animation: ${animationNav} 2s ease-in forwards;
-  display: none;
-
-  a {
-    width: 80%;
-    padding: 1.6rem 0;
-    font: 600 2rem 'Poppins';
-    color: var(--color-text-secondary);
-    border-bottom: 1px solid var(--color-text-secondary);
-    text-align: center;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    span {
-      margin: auto;
-    }
-  }
-
-  ${props =>
-    props.hideMenu &&
-    css`
-      display: none;
-    `}
-
-  ${props =>
-    props.showMenu &&
-    css`
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    `}
 `;
