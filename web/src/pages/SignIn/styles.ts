@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 80%;
+  width: 90%;
 
   img {
     width: 100%;
@@ -41,23 +41,22 @@ export const Container = styled.div`
 
     fieldset {
       min-width: 80%;
+
+      h1 {
+        font-size: 3.6rem;
+      }
     }
   }
 
   @media (min-width: 1020px) {
-    max-width: 1020px;
-
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-rows: 1fr;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-areas:
-      'logo content'
-      'logo nav';
+    grid-template-areas: 'logo content';
 
     img {
       grid-area: logo;
       width: 100%;
-      align-self: flex-start;
     }
 
     fieldset {
@@ -66,13 +65,14 @@ export const Container = styled.div`
     }
 
     nav {
-      grid-area: nav;
+      grid-area: content;
+      margin-top: 42rem;
     }
   }
 `;
 
 export const ForgotPassword = styled.div`
-  margin-top: 4.2rem;
+  margin-top: 3.2rem;
   text-align: center;
 
   a {
@@ -86,7 +86,7 @@ export const ForgotPassword = styled.div`
 `;
 
 export const CreateAccount = styled.div`
-  margin-top: 6.2rem;
+  padding-top: 6.2rem;
 
   display: flex;
   align-items: center;

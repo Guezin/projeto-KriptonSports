@@ -51,8 +51,6 @@ export const Container = styled.div`
   }
 
   @media (min-width: 1020px) {
-    max-width: 1020px;
-
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: repeat(2, 1fr);
