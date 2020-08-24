@@ -22,6 +22,7 @@ export class CreateProducts1593268172656 implements MigrationInterface {
           {
             name: 'product_code',
             type: 'integer',
+            isUnique: true,
           },
 
           {

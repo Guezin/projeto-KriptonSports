@@ -25,11 +25,13 @@ describe('Profile', () => {
 
     const response = await profileService.execute({
       id: user.id,
-      name: 'John Trê',
+      name: 'John',
+      surname: 'Trê',
       email: 'johntre@email.com',
     });
 
-    expect(response.name).toEqual('John Trê');
+    expect(response.name).toEqual('John');
+    expect(response.surname).toEqual('Trê');
     expect(response.email).toEqual('johntre@email.com');
   });
 
@@ -44,7 +46,8 @@ describe('Profile', () => {
     await expect(
       profileService.execute({
         id: 'user-does-not-exist',
-        name: 'Joe Trê',
+        name: 'Joe',
+        surname: 'Doe',
         email: 'johntre@email.com',
       })
     ).rejects.toBeInstanceOf(AppError);
@@ -60,37 +63,14 @@ describe('Profile', () => {
 
     const updatedUser = await profileService.execute({
       id: user.id,
-      name: 'John Doe',
+      name: 'John',
+      surname: 'Doe',
       email: 'johndoe@email.com',
       old_password: '123456',
       password: 'new-password',
     });
 
     expect(updatedUser.password).toBe('new-password');
-  });
-
-  it('should not be able to update if there is no user', async () => {
-    await fakeUsersRepository.create({
-      name: 'John',
-      surname: 'Doe',
-      email: 'johndoe@email.com',
-      password: '123456',
-    });
-
-    const user = await fakeUsersRepository.create({
-      name: 'John',
-      surname: 'Trê',
-      email: 'johntre@email.com',
-      password: '123456',
-    });
-
-    await expect(
-      profileService.execute({
-        id: user.id,
-        name: 'Joe Trê',
-        email: 'johndoe@email.com',
-      })
-    ).rejects.toBeInstanceOf(AppError);
   });
 
   it('should not be able to update if the old password is not informed', async () => {
@@ -104,7 +84,8 @@ describe('Profile', () => {
     await expect(
       profileService.execute({
         id: user.id,
-        name: 'Joe Doe',
+        name: 'Joe',
+        surname: 'Doe',
         email: 'johndoe@email.com',
         password: 'new-password',
       })
@@ -122,7 +103,8 @@ describe('Profile', () => {
     await expect(
       profileService.execute({
         id: user.id,
-        name: 'Joe Doe',
+        name: 'Joe',
+        surname: 'Doe',
         email: 'johndoe@email.com',
         old_password: 'wrong-password',
         password: 'new-password',

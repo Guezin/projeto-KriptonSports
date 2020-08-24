@@ -1,22 +1,19 @@
 import 'reflect-metadata';
 import ListLotsService from './ListLotsService';
 
-import FakeProductRepository from '../repositories/fakes/FakeProductRepository';
 import FakeLotRepository from '../repositories/fakes/FakeLotRepository';
 
-let fakeProductRepository: FakeProductRepository;
 let fakeLotRepository: FakeLotRepository;
 let listLotsService: ListLotsService;
 
-describe('CreateProduct', () => {
+describe('ListLots', () => {
   beforeEach(() => {
-    fakeProductRepository = new FakeProductRepository();
     fakeLotRepository = new FakeLotRepository();
     listLotsService = new ListLotsService(fakeLotRepository);
   });
 
-  it('should be able to return a list of lot', async () => {
-    const result01 = await fakeProductRepository.create({
+  it('should be able to return a list of lots', async () => {
+    await fakeLotRepository.create({
       name: 'Whey Protein 100%',
       product_code: 123456,
       quantity: 10,
@@ -24,16 +21,13 @@ describe('CreateProduct', () => {
       expiration_date: '2020-08-15',
     });
 
-    const result02 = await fakeProductRepository.create({
+    await fakeLotRepository.create({
       name: 'BCAA',
       product_code: 654321,
       quantity: 20,
       price: 35.9,
       expiration_date: '2020-11-30',
     });
-
-    fakeLotRepository.save(result01);
-    fakeLotRepository.save(result02);
 
     const lots = await listLotsService.execute();
 
