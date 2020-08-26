@@ -1,5 +1,6 @@
 import React, { useContext, createContext, useState, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
+import { verify as verifyToken, TokenExpiredError } from 'jsonwebtoken';
 
 import api from '../services/api';
 
@@ -50,10 +51,21 @@ const AuthProvider: React.FC = ({ children }) => {
     const user = localStorage.getItem('@KriptonSports:user');
     const token = localStorage.getItem('@KriptonSports:token');
 
-    if (user && token) {
-      api.defaults.headers.authorization = `Bearer ${token}`;
+    try {
+      if (user && token) {
+        if (verifyToken(token, 'leandroguezinjunior')) {
+          api.defaults.headers.authorization = `Bearer ${token}`;
 
-      return { token, user: JSON.parse(user) };
+          return { token, user: JSON.parse(user) };
+        }
+      }
+    } catch (err) {
+      if (err instanceof TokenExpiredError) {
+        localStorage.removeItem('@KriptonSports:user');
+        localStorage.removeItem('@KriptonSports:token');
+
+        return {} as IResponseAPIPost;
+      }
     }
 
     return {} as IResponseAPIPost;

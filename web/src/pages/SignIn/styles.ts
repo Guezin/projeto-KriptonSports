@@ -81,12 +81,12 @@ export const ForgotPassword = styled.div`
   }
 
   @media (min-width: 1100px) {
-    margin-top: -6.2rem;
+    margin-top: 6.2rem;
   }
 `;
 
 export const CreateAccount = styled.div`
-  padding-top: 6.2rem;
+  padding-top: 4.2rem;
 
   display: flex;
   align-items: center;
@@ -99,5 +99,9 @@ export const CreateAccount = styled.div`
 
   svg {
     margin-right: 0.8rem;
+  }
+
+  @media (min-width: 1100px) {
+    margin-top: 0.8rem;
   }
 `;

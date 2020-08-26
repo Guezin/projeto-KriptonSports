@@ -64,7 +64,7 @@ const ProductProvider: React.FC = ({ children }) => {
       expiration_date,
     }: ICreateProps) => {
       try {
-        const { data } = await api.post<IResponseAPIPost>('/products', {
+        const { data } = await api.post<IResponseAPIPost>('/lots', {
           name,
           quantity: Number(quantity),
           price,
