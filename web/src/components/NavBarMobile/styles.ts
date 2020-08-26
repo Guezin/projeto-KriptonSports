@@ -2,20 +2,8 @@ import styled, { keyframes, css } from 'styled-components';
 
 interface INavProps {
   showMenu: boolean;
-  selected: 'home' | 'products' | 'create-product';
+  selected: number;
 }
-
-const names = {
-  home: css`
-    border-bottom: 1px solid #fff;
-  `,
-  products: css`
-    border-bottom: 1px solid #fff;
-  `,
-  'create-product': css`
-    border-bottom: 1px solid #fff;
-  `,
-};
 
 const animationNav = keyframes`
   0% {
@@ -25,7 +13,7 @@ const animationNav = keyframes`
     opacity: 0;
   }
   75% {
-    opacity: 0.5;
+    opacity: 0;
   }
   100% {
     opacity: 1;
@@ -35,7 +23,7 @@ const animationNav = keyframes`
 export const Nav = styled.div<INavProps>`
   width: 80%;
   margin: 6.4rem auto;
-  animation: ${animationNav} 2s ease-in forwards;
+  animation: ${animationNav} 1s ease-in forwards;
 
   display: none;
 
@@ -49,8 +37,6 @@ export const Nav = styled.div<INavProps>`
       width: 100%;
       padding: 1.6rem 3.2rem;
 
-      ${props => names[props.selected || 'home']}
-
       li {
         font: 500 1.6rem 'Poppins';
         color: var(--color-text-title);
@@ -59,6 +45,10 @@ export const Nav = styled.div<INavProps>`
         align-items: center;
         justify-content: space-between;
       }
+    }
+
+    a:nth-child(${props => props.selected}) {
+      border-bottom: 1px solid #fff;
     }
   }
 

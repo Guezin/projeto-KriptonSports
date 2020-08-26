@@ -21,6 +21,7 @@ const Modal: React.FC<IModalProps> = ({ children, isOpen, setIsOpen }) => {
       style={{
         content: {
           width: '80%',
+          height: '550px',
           margin: 'auto',
           border: 0,
           backgroundColor: '#2D2B2C',
