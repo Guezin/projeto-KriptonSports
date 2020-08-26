@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { FiSearch, FiFilter } from 'react-icons/fi';
 import { Form } from '@unform/web';
@@ -12,13 +12,19 @@ import Product from '../../components/Product';
 import { Container, Content, Separator } from './styles';
 
 const Products: React.FC = () => {
-  const { products, isLoadingProducts } = useProduct();
+  const { products, isLoadingProducts, handleLoadProducts } = useProduct();
 
   const productsToBeShown = useMemo(() => {
     return products.map(product => (
       <Product key={product.lot} product={product} showButtons />
     ));
   }, [products]);
+
+  useEffect(() => {
+    (async () => {
+      await handleLoadProducts();
+    })();
+  }, [handleLoadProducts]);
 
   return (
     <Layout>

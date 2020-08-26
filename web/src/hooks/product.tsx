@@ -15,7 +15,7 @@ export interface IProduct {
   expiration_date: string;
 }
 
-interface IProductInfo {
+export interface IProductInfo {
   lot: number;
   product: IProduct;
 }
@@ -43,7 +43,7 @@ interface IProductProviderProps {
   isLoadingProducts: boolean;
   handleLoadProducts: () => Promise<void>;
   create: (productData: Omit<IProduct, 'id'>) => Promise<void>;
-  update: (productData: IProduct) => Promise<void>;
+  update: (data: IProductInfo) => Promise<void>;
 }
 
 const ProductProvider: React.FC = ({ children }) => {
@@ -77,9 +77,35 @@ const ProductProvider: React.FC = ({ children }) => {
     []
   );
 
-  const update = useCallback(async (product: IProduct) => {
-    console.log(product);
-  }, []);
+  const update = useCallback(
+    async ({ lot, product }: IProductInfo) => {
+      const copyProducts = products;
+      const { name, quantity, price, product_code, expiration_date } = product;
+
+      try {
+        await api.put(`/lots/${lot}`, {
+          name,
+          quantity,
+          price,
+          product_code,
+          expiration_date,
+        });
+
+        const indexProduct = products.findIndex(
+          findIndexProduct => findIndexProduct.lot === lot
+        );
+
+        copyProducts[indexProduct].product = product;
+
+        setProducts(copyProducts);
+
+        alert('Produto atualizado com sucesso!');
+      } catch {
+        alert('Erro ao atualizar produto!');
+      }
+    },
+    [products]
+  );
 
   const handleLoadProducts = useCallback(async () => {
     const { data } = await api.get<IResponseAPIGet[]>('/lots');

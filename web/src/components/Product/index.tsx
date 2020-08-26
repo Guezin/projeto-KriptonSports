@@ -76,7 +76,7 @@ const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
       <ModalEditProduct
         isOpen={modalOpen}
         setIsOpen={toggleEditModal}
-        editingProduct={prod.product}
+        editingProduct={prod}
       />
     </Container>
   );

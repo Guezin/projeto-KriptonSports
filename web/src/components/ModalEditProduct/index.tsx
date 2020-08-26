@@ -8,7 +8,7 @@ import {
 } from 'react-icons/ri';
 import { TiSortNumericallyOutline } from 'react-icons/ti';
 
-import { useProduct, IProduct } from '../../hooks/product';
+import { useProduct, IProduct, IProductInfo } from '../../hooks/product';
 
 import Modal from '../Modal';
 import Input from '../Input';
@@ -19,7 +19,7 @@ import { CloseModal, Form } from './styles';
 interface IModalEditProductProps {
   isOpen: boolean;
   setIsOpen: () => void;
-  editingProduct: IProduct;
+  editingProduct: IProductInfo;
 }
 
 const ModalEditProduct: React.FC<IModalEditProductProps> = ({
@@ -30,23 +30,28 @@ const ModalEditProduct: React.FC<IModalEditProductProps> = ({
   const { update } = useProduct();
 
   const handleSubmit = useCallback(
-    ({
+    async ({
       name,
       quantity,
       price,
       product_code,
       expiration_date,
     }: Omit<IProduct, 'id'>) => {
-      update({
-        id: editingProduct.id,
-        name,
-        quantity,
-        price,
-        product_code,
-        expiration_date,
+      await update({
+        lot: editingProduct.lot,
+        product: {
+          id: editingProduct.product.id,
+          name,
+          quantity,
+          price,
+          product_code,
+          expiration_date,
+        },
       });
+
+      setIsOpen();
     },
-    [editingProduct, update]
+    [editingProduct, update, setIsOpen]
   );
 
   return (
@@ -57,7 +62,7 @@ const ModalEditProduct: React.FC<IModalEditProductProps> = ({
         </button>
       </CloseModal>
 
-      <Form onSubmit={handleSubmit} initialData={editingProduct}>
+      <Form onSubmit={handleSubmit} initialData={editingProduct.product}>
         <Input type="text" name="name" icon={RiStore3Line} placeholder="Nome" />
         <Input
           type="number"
