@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
 import Lot from '@modules/lots/infra/typeorm/entities/Lot';
+import Product from '@modules/lots/infra/typeorm/entities/Product';
 
 import ILotRepository from '../repositories/ILotRepository';
 
@@ -10,6 +11,11 @@ interface IRequest {
   quantity: number;
   price: number;
   expiration_date: string;
+}
+
+interface IResponse {
+  lot: number;
+  product: Product;
 }
 
 @injectable()
@@ -25,8 +31,8 @@ class CreateLotService {
     quantity,
     price,
     expiration_date,
-  }: IRequest): Promise<Lot> {
-    const lot = await this.lotRepository.create({
+  }: IRequest): Promise<IResponse> {
+    const { lot, product } = await this.lotRepository.create({
       name,
       product_code,
       quantity,
@@ -34,7 +40,7 @@ class CreateLotService {
       expiration_date,
     });
 
-    return lot;
+    return { lot, product };
   }
 }
 

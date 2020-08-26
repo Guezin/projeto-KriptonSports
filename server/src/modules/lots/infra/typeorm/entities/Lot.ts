@@ -14,7 +14,7 @@ import Product from './Product';
 @Entity('lots')
 class Lot {
   @PrimaryGeneratedColumn('increment')
-  id: string;
+  id: number;
 
   @Column()
   @Exclude()

@@ -6,7 +6,7 @@ import Lot from '../infra/typeorm/entities/Lot';
 import ILotRepository from '../repositories/ILotRepository';
 
 interface IRequest {
-  id: string;
+  id: number;
   name: string;
   product_code: number;
   quantity: number;

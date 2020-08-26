@@ -9,7 +9,7 @@ import IProductDTO from '@modules/lots/dtos/IProductDTO';
 const product = new Product();
 const lot = new Lot();
 
-class FakeProductRepository implements ILotRepository {
+class FakeLotRepository implements ILotRepository {
   private lots: Lot[] = [];
 
   constructor() {
@@ -39,4 +39,4 @@ class FakeProductRepository implements ILotRepository {
   }
 }
 
-export default FakeProductRepository;
+export default FakeLotRepository;

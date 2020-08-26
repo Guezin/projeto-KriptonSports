@@ -8,6 +8,11 @@ import Lot from '@modules/lots/infra/typeorm/entities/Lot';
 import IProductDTO from '@modules/lots/dtos/IProductDTO';
 import ILotRepository from '@modules/lots/repositories/ILotRepository';
 
+interface IResponse {
+  lot: number;
+  product: Product;
+}
+
 class LotRepository implements ILotRepository {
   private trx: QueryRunner;
   private ormRepositoryLot: Repository<Lot>;
@@ -25,7 +30,7 @@ class LotRepository implements ILotRepository {
     quantity,
     price,
     expiration_date,
-  }: IProductDTO): Promise<Lot> {
+  }: IProductDTO): Promise<IResponse> {
     await this.trx.connect();
 
     try {
@@ -45,7 +50,7 @@ class LotRepository implements ILotRepository {
 
       await this.trx.commitTransaction();
 
-      return lot;
+      return { lot: lot.id, product };
     } catch {
       await this.trx.rollbackTransaction();
 
@@ -61,7 +66,7 @@ class LotRepository implements ILotRepository {
     return lot;
   }
 
-  public async findById(id: string): Promise<Lot | undefined> {
+  public async findById(id: number): Promise<Lot | undefined> {
     const lot = await this.ormRepositoryLot.findOne({
       where: { id },
     });
@@ -79,6 +84,10 @@ class LotRepository implements ILotRepository {
 
   public async saveProduct(product: Product): Promise<void> {
     await this.ormRepositoryProduct.save(product);
+  }
+
+  public async destroy(id: number): Promise<void> {
+    await this.ormRepositoryLot.delete(id);
   }
 }
 

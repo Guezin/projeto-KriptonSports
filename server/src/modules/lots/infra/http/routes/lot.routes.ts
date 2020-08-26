@@ -36,4 +36,6 @@ route.put(
   lotController.update
 );
 
+route.delete('/:id', lotController.delete);
+
 export default route;
