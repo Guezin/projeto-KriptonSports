@@ -12,7 +12,7 @@ import Product from '../../components/Product';
 import { Container, Content, Separator } from './styles';
 
 const Products: React.FC = () => {
-  const { products, loadingProducts } = useProduct();
+  const { products, isLoadingProducts } = useProduct();
 
   const productsToBeShown = useMemo(() => {
     return products.map(product => (
@@ -41,7 +41,7 @@ const Products: React.FC = () => {
             </Form>
           </fieldset>
 
-          {loadingProducts ? (
+          {isLoadingProducts ? (
             <SkeletonTheme color="#3A3638" highlightColor="#514B4E">
               <Skeleton
                 count={7}

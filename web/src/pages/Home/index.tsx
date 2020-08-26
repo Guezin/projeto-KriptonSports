@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import { useProduct } from '../../hooks/product';
@@ -9,7 +9,7 @@ import Product from '../../components/Product';
 import { Container, Content } from './styles';
 
 const Home: React.FC = () => {
-  const { products, loadingProducts } = useProduct();
+  const { products, isLoadingProducts, handleLoadProducts } = useProduct();
 
   const productsToBeShown = useMemo(() => {
     return products.map(product => (
@@ -17,13 +17,19 @@ const Home: React.FC = () => {
     ));
   }, [products]);
 
+  useEffect(() => {
+    (async () => {
+      await handleLoadProducts();
+    })();
+  }, [handleLoadProducts]);
+
   return (
     <Layout>
       <Container>
         <Content>
           <h1>Home</h1>
 
-          {loadingProducts ? (
+          {isLoadingProducts ? (
             <SkeletonTheme color="#3A3638" highlightColor="#514B4E">
               <Skeleton
                 count={7}

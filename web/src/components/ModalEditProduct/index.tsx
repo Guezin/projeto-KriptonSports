@@ -46,7 +46,7 @@ const ModalEditProduct: React.FC<IModalEditProductProps> = ({
         expiration_date,
       });
     },
-    []
+    [editingProduct, update]
   );
 
   return (
