@@ -12,7 +12,7 @@ export default interface ILotRepository {
   create(productData: IProductDTO): Promise<IResponse>;
   listAll(): Promise<Lot[]>;
   findById(id: number): Promise<Lot | undefined>;
-  findByProductId(id: string): Promise<Product | undefined>;
+  findByProductCode(product_code: number): Promise<Product | undefined>;
   saveProduct(product: Product): Promise<void>;
   destroy(id: number): Promise<void>;
 }

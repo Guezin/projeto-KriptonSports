@@ -21,7 +21,7 @@ describe('CreateLot', () => {
       expiration_date: '2020-08-15',
     });
 
-    expect(result).toHaveProperty('id');
-    expect(result).toHaveProperty('product_id');
+    expect(result).toHaveProperty('lot');
+    expect(result.product).toHaveProperty('id');
   });
 });

@@ -111,4 +111,29 @@ describe('Profile', () => {
       })
     ).rejects.toBeInstanceOf(AppError);
   });
+
+  it('should not be able to update the email if already exists', async () => {
+    await fakeUsersRepository.create({
+      name: 'John',
+      surname: 'Doe',
+      email: 'johndoe@email.com',
+      password: '123456',
+    });
+
+    const user = await fakeUsersRepository.create({
+      name: 'John',
+      surname: 'Doe Um',
+      email: 'johndoeum@email.com',
+      password: '123456',
+    });
+
+    await expect(
+      profileService.execute({
+        id: user.id,
+        name: 'Joe',
+        surname: 'Doe Um',
+        email: 'johndoe@email.com',
+      })
+    ).rejects.toBeInstanceOf(AppError);
+  });
 });

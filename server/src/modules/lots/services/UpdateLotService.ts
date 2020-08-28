@@ -35,7 +35,7 @@ class UpdateLotService {
       throw new AppError('Sorry, lot not found!');
     }
 
-    const product = await this.lotRepository.findByProductId(lot.product_id);
+    const product = await this.lotRepository.findByProductCode(product_code);
 
     if (!product) {
       throw new AppError('Sorry, product not found!');

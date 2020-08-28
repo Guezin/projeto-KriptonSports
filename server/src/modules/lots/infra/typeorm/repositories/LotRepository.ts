@@ -74,9 +74,11 @@ class LotRepository implements ILotRepository {
     return lot;
   }
 
-  public async findByProductId(id: string): Promise<Product | undefined> {
+  public async findByProductCode(
+    product_code: number
+  ): Promise<Product | undefined> {
     const product = await this.ormRepositoryProduct.findOne({
-      where: { id },
+      where: { product_code },
     });
 
     return product;
