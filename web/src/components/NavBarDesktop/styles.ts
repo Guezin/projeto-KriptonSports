@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { lighten } from 'polished';
 
 interface IContainerProps {
   selected: number;
@@ -20,6 +21,7 @@ export const Container = styled.div<IContainerProps>`
       a {
         width: 100%;
         padding: 1.6rem 3.2rem;
+        transition: background-color ease-in-out 0.2s;
 
         li {
           font: 500 1.6rem 'Poppins';
@@ -37,6 +39,7 @@ export const Container = styled.div<IContainerProps>`
 
       a:hover {
         border-left: 2px solid #fff;
+        background-color: ${lighten(0.03, '#202020')};
       }
     }
   }

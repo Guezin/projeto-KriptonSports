@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FiLogOut, FiMail } from 'react-icons/fi';
+
+import { useAuth } from '../../hooks/auth';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -10,7 +12,20 @@ import kriptonLogo from '../../assets/kripton-logo.png';
 
 import { Container, BackToSignIn } from './styles';
 
+interface IFormSubmitData {
+  email: string;
+}
+
 const ForgotPassword: React.FC = () => {
+  const { forgotPassword } = useAuth();
+
+  const handleSubmit = useCallback(
+    async ({ email }: IFormSubmitData) => {
+      await forgotPassword(email);
+    },
+    [forgotPassword]
+  );
+
   return (
     <Container>
       <img src={kriptonLogo} alt="Kripton Sports Logo" />
@@ -18,7 +33,7 @@ const ForgotPassword: React.FC = () => {
       <fieldset>
         <legend>Recuperar senha</legend>
 
-        <Form onSubmit={() => {}}>
+        <Form onSubmit={handleSubmit}>
           <Input name="email" type="text" icon={FiMail} placeholder="E-mail" />
 
           <Button type="submit">Recuperar</Button>

@@ -39,6 +39,8 @@ interface IAuthProviderProps {
   signUp: (dataUser: ISignUpProps) => Promise<void>;
   signOut: () => void;
   updateUser: (dataUser: IUpdateUserProps) => Promise<void>;
+  forgotPassword: (email: string) => Promise<void>;
+  resetPassword: (token: string, password: string) => Promise<void>;
 }
 
 interface IResponseAPIPost {
@@ -171,9 +173,44 @@ const AuthProvider: React.FC = ({ children }) => {
     [data.token, history]
   );
 
+  const forgotPassword = useCallback(async (email: string) => {
+    try {
+      await api.post('/forgot-password', {
+        email,
+      });
+
+      alert(
+        'Email enviado!\nVerifique sua caixa de entrada para resetar a senha!'
+      );
+    } catch (err) {
+      alert(err.message);
+    }
+  }, []);
+
+  const resetPassword = useCallback(async (token: string, password: string) => {
+    try {
+      await api.post('/reset-password', {
+        token,
+        password,
+      });
+
+      alert('Senha atualizada com sucesso, já pode fazer logon!');
+    } catch {
+      alert('Erro ao atualizar senha!');
+    }
+  }, []);
+
   return (
     <AuthContext.Provider
-      value={{ user: data.user, signIn, signUp, signOut, updateUser }}
+      value={{
+        user: data.user,
+        signIn,
+        signUp,
+        signOut,
+        updateUser,
+        forgotPassword,
+        resetPassword,
+      }}
     >
       {children}
     </AuthContext.Provider>
