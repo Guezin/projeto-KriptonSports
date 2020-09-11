@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { FiCalendar, FiTrash2, FiEdit3 } from 'react-icons/fi';
 
 import ModalEditProduct from '../ModalEditProduct';
+import ModalDeleteProduct from '../ModalDeleteProduct';
 
 import { Container, ContainerButtons, Content } from './styles';
 
@@ -23,11 +24,16 @@ interface IProductProps {
 }
 
 const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalEditOpen, setModalEditOpen] = useState(false);
+  const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
 
   const toggleEditModal = useCallback(() => {
-    setModalOpen(!modalOpen);
-  }, [modalOpen]);
+    setModalEditOpen(!modalEditOpen);
+  }, [modalEditOpen]);
+
+  const toggleDeleteModal = useCallback(() => {
+    setModalDeleteOpen(!modalDeleteOpen);
+  }, [modalDeleteOpen]);
 
   return (
     <Container>
@@ -43,7 +49,7 @@ const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
               <FiEdit3 size={20} color="#fff" />
             </button>
 
-            <button type="button">
+            <button type="button" onClick={toggleDeleteModal}>
               <FiTrash2 size={20} color="#fff" />
             </button>
           </ContainerButtons>
@@ -74,9 +80,14 @@ const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
       </Content>
 
       <ModalEditProduct
-        isOpen={modalOpen}
+        isOpen={modalEditOpen}
         setIsOpen={toggleEditModal}
         editingProduct={prod}
+      />
+
+      <ModalDeleteProduct
+        isOpen={modalDeleteOpen}
+        setIsOpen={toggleDeleteModal}
       />
     </Container>
   );
