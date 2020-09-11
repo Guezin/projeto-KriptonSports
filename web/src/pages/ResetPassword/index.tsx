@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FiLogOut, FiLock } from 'react-icons/fi';
+import { BeatLoader } from 'react-spinners';
 
 import { useAuth } from '../../hooks/auth';
 
@@ -17,16 +18,19 @@ interface IFormSubmitData {
 }
 
 const ResetPassword: React.FC = () => {
-  const { resetPassword } = useAuth();
+  const { loading, resetPassword } = useAuth();
   const location = useLocation();
+  const history = useHistory();
 
   const handleSubmit = useCallback(
     async ({ password }: IFormSubmitData) => {
       const token = location.search.replace('?token=', '');
 
       await resetPassword(token, password);
+
+      history.push('/');
     },
-    [resetPassword, location.search]
+    [resetPassword, location.search, history]
   );
 
   return (
@@ -50,7 +54,18 @@ const ResetPassword: React.FC = () => {
             placeholder="Confirmar senha"
           />
 
-          <Button type="submit">Atualizar</Button>
+          <Button type="submit">
+            {loading ? (
+              <BeatLoader
+                css="display: block; margin: 0 auto;"
+                size={8}
+                color={'#fff'}
+                loading={loading}
+              />
+            ) : (
+              'Atualizar'
+            )}
+          </Button>
         </Form>
       </fieldset>
 

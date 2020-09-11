@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FiLogOut, FiMail } from 'react-icons/fi';
+import { BeatLoader } from 'react-spinners';
 
 import { useAuth } from '../../hooks/auth';
 
@@ -17,7 +18,7 @@ interface IFormSubmitData {
 }
 
 const ForgotPassword: React.FC = () => {
-  const { forgotPassword } = useAuth();
+  const { loading, forgotPassword } = useAuth();
 
   const handleSubmit = useCallback(
     async ({ email }: IFormSubmitData) => {
@@ -36,7 +37,18 @@ const ForgotPassword: React.FC = () => {
         <Form onSubmit={handleSubmit}>
           <Input name="email" type="text" icon={FiMail} placeholder="E-mail" />
 
-          <Button type="submit">Recuperar</Button>
+          <Button type="submit">
+            {loading ? (
+              <BeatLoader
+                css="display: block; margin: 0 auto;"
+                size={8}
+                color={'#fff'}
+                loading={loading}
+              />
+            ) : (
+              'Recuperar'
+            )}
+          </Button>
         </Form>
       </fieldset>
 

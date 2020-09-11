@@ -34,6 +34,7 @@ interface IUser {
 }
 
 interface IAuthProviderProps {
+  loading: boolean;
   user: IUser;
   signIn: (credencials: ISignInProps) => Promise<void>;
   signUp: (dataUser: ISignUpProps) => Promise<void>;
@@ -49,6 +50,7 @@ interface IResponseAPIPost {
 }
 
 const AuthProvider: React.FC = ({ children }) => {
+  const [loading, setLoading] = useState(false);
   const [data, setData] = useState<IResponseAPIPost>(() => {
     const user = localStorage.getItem('@KriptonSports:user');
     const token = localStorage.getItem('@KriptonSports:token');
@@ -175,6 +177,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const forgotPassword = useCallback(async (email: string) => {
     try {
+      setLoading(true);
+
       await api.post('/forgot-password', {
         email,
       });
@@ -184,11 +188,15 @@ const AuthProvider: React.FC = ({ children }) => {
       );
     } catch (err) {
       alert(err.message);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
   const resetPassword = useCallback(async (token: string, password: string) => {
     try {
+      setLoading(true);
+
       await api.post('/reset-password', {
         token,
         password,
@@ -197,12 +205,15 @@ const AuthProvider: React.FC = ({ children }) => {
       alert('Senha atualizada com sucesso, já pode fazer logon!');
     } catch {
       alert('Erro ao atualizar senha!');
+    } finally {
+      setLoading(false);
     }
   }, []);
 
   return (
     <AuthContext.Provider
       value={{
+        loading,
         user: data.user,
         signIn,
         signUp,
