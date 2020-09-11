@@ -42,7 +42,7 @@ export const Container = styled.div`
     }
 
     fieldset {
-      min-width: 80%;
+      max-width: 70%;
 
       h1 {
         font-size: 3.6rem;
@@ -63,7 +63,7 @@ export const Container = styled.div`
 
     fieldset {
       grid-area: content;
-      width: 80%;
+
       margin: auto;
     }
   }
