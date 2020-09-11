@@ -14,8 +14,8 @@ const routes = Router();
 routes.use('/sessions', sessionsRoutes);
 routes.use('/users', userRoutes);
 routes.use('/profile', ensureAuthenticated, profileRoutes);
-routes.use('/forgot-password', ensureAuthenticated, forgotPassword);
-routes.use('/reset-password', ensureAuthenticated, resetPassword);
+routes.use('/forgot-password', forgotPassword);
+routes.use('/reset-password', resetPassword);
 routes.use('/lots', ensureAuthenticated, lotRoutes);
 
 export default routes;

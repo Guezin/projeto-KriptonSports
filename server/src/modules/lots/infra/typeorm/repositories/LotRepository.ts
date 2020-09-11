@@ -1,4 +1,10 @@
-import { getConnection, getRepository, Repository, QueryRunner } from 'typeorm';
+import {
+  getConnection,
+  getRepository,
+  Repository,
+  QueryRunner,
+  Connection,
+} from 'typeorm';
 
 import AppError from '@shared/errors/AppError';
 
@@ -14,12 +20,12 @@ interface IResponse {
 }
 
 class LotRepository implements ILotRepository {
-  private trx: QueryRunner;
+  private connection: Connection;
   private ormRepositoryLot: Repository<Lot>;
   private ormRepositoryProduct: Repository<Product>;
 
   constructor() {
-    this.trx = getConnection().createQueryRunner();
+    this.connection = getConnection();
     this.ormRepositoryLot = getRepository(Lot);
     this.ormRepositoryProduct = getRepository(Product);
   }
@@ -31,12 +37,12 @@ class LotRepository implements ILotRepository {
     price,
     expiration_date,
   }: IProductDTO): Promise<IResponse> {
-    await this.trx.connect();
+    const trx = this.connection.createQueryRunner();
 
     try {
-      await this.trx.startTransaction();
+      await trx.startTransaction();
 
-      const product = await this.trx.manager.getRepository(Product).save({
+      const product = await trx.manager.getRepository(Product).save({
         name,
         product_code,
         quantity,
@@ -44,19 +50,19 @@ class LotRepository implements ILotRepository {
         expiration_date,
       });
 
-      const lot = await this.trx.manager.getRepository(Lot).save({
+      const lot = await trx.manager.getRepository(Lot).save({
         product_id: product.id,
       });
 
-      await this.trx.commitTransaction();
+      await trx.commitTransaction();
 
       return { lot: lot.id, product };
     } catch {
-      await this.trx.rollbackTransaction();
+      await trx.rollbackTransaction();
 
       throw new AppError('Sorry, error while creating the product');
     } finally {
-      await this.trx.release();
+      await trx.release();
     }
   }
 
