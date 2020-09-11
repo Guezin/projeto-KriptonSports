@@ -47,6 +47,18 @@ export const Container = styled.div`
       }
     }
   }
+
+  @media (min-width: 750px) {
+    fieldset {
+      max-width: 40%;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    fieldset {
+      max-width: 30%;
+    }
+  }
 `;
 
 export const GoToBack = styled.button`

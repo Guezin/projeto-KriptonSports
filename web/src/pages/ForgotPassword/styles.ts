@@ -64,6 +64,10 @@ export const Container = styled.div`
     fieldset {
       grid-area: content;
       margin: auto;
+
+      legend {
+        width: 100%;
+      }
     }
   }
 `;

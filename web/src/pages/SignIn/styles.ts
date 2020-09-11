@@ -48,7 +48,7 @@ export const Container = styled.div`
     }
   }
 
-  @media (min-width: 1020px) {
+  @media (min-width: 1100px) {
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: repeat(2, 1fr);
@@ -80,7 +80,7 @@ export const ForgotPassword = styled.div`
     color: var(--color-text-secondary);
   }
 
-  @media (min-width: 1100px) {
+  @media (min-width: 1020px) {
     margin-top: 6.2rem;
   }
 `;
@@ -101,7 +101,7 @@ export const CreateAccount = styled.div`
     margin-right: 0.8rem;
   }
 
-  @media (min-width: 1100px) {
+  @media (min-width: 1020px) {
     margin-top: 0.8rem;
   }
 `;
