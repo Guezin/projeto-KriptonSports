@@ -28,11 +28,6 @@ interface ICreateProps {
   expiration_date: string;
 }
 
-interface IResponseAPIGet {
-  id: number;
-  product: IProduct;
-}
-
 interface IResponseAPIPost {
   lot: number;
   product: IProduct;
@@ -40,15 +35,14 @@ interface IResponseAPIPost {
 
 interface IProductProviderProps {
   products: IProductInfo[];
-  isLoadingProducts: boolean;
-  handleLoadProducts: () => Promise<void>;
+  setProducts: React.Dispatch<React.SetStateAction<IProductInfo[]>>;
   create: (productData: Omit<IProduct, 'id'>) => Promise<void>;
   update: (data: IProductInfo) => Promise<void>;
+  deleteBatch: (batch: number) => Promise<void>;
 }
 
 const ProductProvider: React.FC = ({ children }) => {
   const [products, setProducts] = useState<IProductInfo[]>([]);
-  const [isLoadingProducts, setIsLoadingProducts] = useState(true);
 
   const create = useCallback(
     async ({
@@ -107,28 +101,32 @@ const ProductProvider: React.FC = ({ children }) => {
     [products]
   );
 
-  const handleLoadProducts = useCallback(async () => {
-    const { data } = await api.get<IResponseAPIGet[]>('/lots');
+  const deleteBatch = useCallback(
+    async (batch: number) => {
+      try {
+        await api.delete(`/lots/${batch}`);
 
-    const result = data.map(item => {
-      return {
-        lot: item.id,
-        product: item.product,
-      };
-    });
+        const updatedListBatch = products.filter(
+          product => product.lot !== batch
+        );
 
-    setProducts(result);
-    setIsLoadingProducts(false);
-  }, []);
+        setProducts(updatedListBatch);
+        alert('Lote excluido com sucesso!');
+      } catch {
+        alert('Erro ao excluir lote!');
+      }
+    },
+    [products]
+  );
 
   return (
     <ProductContext.Provider
       value={{
         create,
         update,
+        deleteBatch,
         products,
-        isLoadingProducts,
-        handleLoadProducts,
+        setProducts,
       }}
     >
       {children}

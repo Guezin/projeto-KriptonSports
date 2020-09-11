@@ -1,15 +1,23 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
-import { useProduct } from '../../hooks/product';
+import api from '../../services/api';
+import { useProduct, IProduct } from '../../hooks/product';
 
 import Layout from '../../components/Layout';
 import Product from '../../components/Product';
 
 import { Container, Content } from './styles';
 
+interface IResponseAPIGet {
+  id: number;
+  product: IProduct;
+}
+
 const Home: React.FC = () => {
-  const { products, isLoadingProducts, handleLoadProducts } = useProduct();
+  const [loading, setLoading] = useState(true);
+
+  const { products, setProducts } = useProduct();
 
   const productsToBeShown = useMemo(() => {
     return products.map(product => (
@@ -19,9 +27,24 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     (async () => {
-      await handleLoadProducts();
+      try {
+        const { data } = await api.get<IResponseAPIGet[]>('/lots');
+
+        const result = data.map(item => {
+          return {
+            lot: item.id,
+            product: item.product,
+          };
+        });
+
+        setProducts(result);
+      } catch {
+        alert('Erro ao carregar produtos!');
+      } finally {
+        setLoading(false);
+      }
     })();
-  }, [handleLoadProducts]);
+  }, [setProducts]);
 
   return (
     <Layout>
@@ -29,7 +52,7 @@ const Home: React.FC = () => {
         <Content>
           <h1>Home</h1>
 
-          {isLoadingProducts ? (
+          {loading ? (
             <SkeletonTheme color="#3A3638" highlightColor="#514B4E">
               <Skeleton
                 count={7}

@@ -88,6 +88,7 @@ const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
       <ModalDeleteProduct
         isOpen={modalDeleteOpen}
         setIsOpen={toggleDeleteModal}
+        batchToBeDeleted={prod.lot}
       />
     </Container>
   );
