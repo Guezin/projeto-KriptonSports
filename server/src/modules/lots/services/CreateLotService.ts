@@ -1,6 +1,7 @@
 import { injectable, inject } from 'tsyringe';
 
-import Lot from '@modules/lots/infra/typeorm/entities/Lot';
+import AppError from '@shared/errors/AppError';
+
 import Product from '@modules/lots/infra/typeorm/entities/Product';
 
 import ILotRepository from '../repositories/ILotRepository';
@@ -32,6 +33,14 @@ class CreateLotService {
     price,
     expiration_date,
   }: IRequest): Promise<IResponse> {
+    const productExists = await this.lotRepository.findByProductCode(
+      product_code
+    );
+
+    if (productExists) {
+      throw new AppError('Sorry, but this product code already exists!', 401);
+    }
+
     const { lot, product } = await this.lotRepository.create({
       name,
       product_code,

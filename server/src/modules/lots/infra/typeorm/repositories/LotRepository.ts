@@ -1,10 +1,4 @@
-import {
-  getConnection,
-  getRepository,
-  Repository,
-  QueryRunner,
-  Connection,
-} from 'typeorm';
+import { getConnection, getRepository, Repository, Connection } from 'typeorm';
 
 import AppError from '@shared/errors/AppError';
 
@@ -80,6 +74,16 @@ class LotRepository implements ILotRepository {
     return lot;
   }
 
+  public async findProductById(
+    product_id: string
+  ): Promise<Product | undefined> {
+    const product = await this.ormRepositoryProduct.findOne({
+      where: { id: product_id },
+    });
+
+    return product;
+  }
+
   public async findByProductCode(
     product_code: number
   ): Promise<Product | undefined> {
@@ -94,8 +98,9 @@ class LotRepository implements ILotRepository {
     await this.ormRepositoryProduct.save(product);
   }
 
-  public async destroy(id: number): Promise<void> {
-    await this.ormRepositoryLot.delete(id);
+  public async destroy(lot: Lot, product: Product): Promise<void> {
+    await this.ormRepositoryLot.remove(lot);
+    await this.ormRepositoryProduct.remove(product);
   }
 }
 
