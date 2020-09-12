@@ -26,7 +26,7 @@ describe('DeleteLot', () => {
 
     await deleteLot.execute(lot);
 
-    expect(destroyLot).toHaveBeenCalledWith(lot);
+    expect(destroyLot).toHaveBeenCalled();
   });
 
   it('should not be able to delete a lot if non exists!', async () => {

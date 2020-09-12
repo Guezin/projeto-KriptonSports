@@ -28,7 +28,7 @@ class FakeLotRepository implements ILotRepository {
   public async create(productData: IProductDTO): Promise<ILotInfo> {
     const newProduct = Object.assign(product, { id: uuid() }, productData);
     const newLot = Object.assign(lot, {
-      id: Math.floor(Math.random() * 100),
+      id: Math.floor(Math.random() * 100) + 1,
       product_id: newProduct.id,
       product: newProduct,
     });
@@ -50,6 +50,16 @@ class FakeLotRepository implements ILotRepository {
     return lot;
   }
 
+  public async findProductById(
+    product_id: string
+  ): Promise<Product | undefined> {
+    const product = this.products.find(
+      findProduct => findProduct.id === product_id
+    );
+
+    return product;
+  }
+
   public async findByProductCode(
     product_code: number
   ): Promise<Product | undefined> {
@@ -68,10 +78,14 @@ class FakeLotRepository implements ILotRepository {
     this.products[indexProduct] = product;
   }
 
-  public async destroy(id: number): Promise<void> {
-    const findIndexLot = this.lots.findIndex(findLot => findLot.id === id);
+  public async destroy(lot: Lot, product: Product): Promise<void> {
+    const findIndexLot = this.lots.findIndex(findLot => findLot.id === lot.id);
+    const findIndexProduct = this.products.findIndex(
+      findProduct => findProduct.id === product.id
+    );
 
     this.lots.splice(findIndexLot, 1);
+    this.products.splice(findIndexProduct, 1);
   }
 }
 

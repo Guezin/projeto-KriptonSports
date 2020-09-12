@@ -69,7 +69,7 @@ describe('UpdateLot', () => {
 
     await expect(
       updateLot.execute({
-        id: lot,
+        id: 0,
         name: 'product-non-exists',
         quantity: 15,
         price: 30.0,
