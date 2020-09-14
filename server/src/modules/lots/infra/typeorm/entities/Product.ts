@@ -2,6 +2,7 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
+  OneToOne,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -22,9 +23,6 @@ class Product {
 
   @Column()
   price: number;
-
-  @Column()
-  expiration_date: string;
 
   @CreateDateColumn()
   created_at: Date;

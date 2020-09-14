@@ -5,11 +5,12 @@ import AppError from '@shared/errors/AppError';
 import Product from '@modules/lots/infra/typeorm/entities/Product';
 import Lot from '@modules/lots/infra/typeorm/entities/Lot';
 
-import IProductDTO from '@modules/lots/dtos/IProductDTO';
+import ILotDTO from '@modules/lots/dtos/ILotDTO';
+import ISearchDTO from '@modules/lots/dtos/ISearchDTO';
 import ILotRepository from '@modules/lots/repositories/ILotRepository';
 
 interface IResponse {
-  lot: number;
+  lot: Lot;
   product: Product;
 }
 
@@ -30,7 +31,7 @@ class LotRepository implements ILotRepository {
     quantity,
     price,
     expiration_date,
-  }: IProductDTO): Promise<IResponse> {
+  }: ILotDTO): Promise<IResponse> {
     const trx = this.connection.createQueryRunner();
 
     try {
@@ -41,16 +42,16 @@ class LotRepository implements ILotRepository {
         product_code,
         quantity,
         price,
-        expiration_date,
       });
 
       const lot = await trx.manager.getRepository(Lot).save({
         product_id: product.id,
+        expiration_date,
       });
 
       await trx.commitTransaction();
 
-      return { lot: lot.id, product };
+      return { lot, product };
     } catch {
       await trx.rollbackTransaction();
 
@@ -92,6 +93,27 @@ class LotRepository implements ILotRepository {
     });
 
     return product;
+  }
+
+  public async searchTarget({ type, target }: ISearchDTO): Promise<void> {
+    switch (type) {
+      case 'lot':
+        const result = await this.ormRepositoryLot.findOne({
+          where: { id: Number(target) },
+        });
+        console.log(result);
+        break;
+      case 'expiration_date':
+        const result2 = await this.ormRepositoryLot.find({
+          where: {
+            product: {
+              expiration_date: target,
+            },
+          },
+        });
+        console.log(result2);
+        break;
+    }
   }
 
   public async saveProduct(product: Product): Promise<void> {

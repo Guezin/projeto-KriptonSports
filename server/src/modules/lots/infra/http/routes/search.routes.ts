@@ -5,6 +5,6 @@ import SearchController from '../controllers/SearchController';
 const routes = Router();
 const searchController = new SearchController();
 
-routes.get('/:target', searchController.index);
+routes.post('/:type', searchController.create);
 
 export default routes;

@@ -13,7 +13,7 @@ class LotController {
 
     const lots = await listLots.execute();
 
-    return response.json(classToClass(lots));
+    return response.json(lots);
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
@@ -34,7 +34,11 @@ class LotController {
       expiration_date,
     });
 
-    return response.json({ lot, product });
+    return response.json({
+      lot: lot.id,
+      expiration_date: lot.expiration_date,
+      product,
+    });
   }
 
   public async update(request: Request, response: Response): Promise<Response> {

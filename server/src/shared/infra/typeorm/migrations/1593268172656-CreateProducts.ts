@@ -37,11 +37,6 @@ export class CreateProducts1593268172656 implements MigrationInterface {
           },
 
           {
-            name: 'expiration_date',
-            type: 'varchar',
-          },
-
-          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

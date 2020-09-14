@@ -20,7 +20,10 @@ class Lot {
   @Exclude()
   product_id: string;
 
-  @OneToOne(() => Product, { eager: true })
+  @Column()
+  expiration_date: string;
+
+  @OneToOne(() => Product, { eager: true, cascade: true })
   @JoinColumn({ name: 'product_id' })
   product: Product;
 

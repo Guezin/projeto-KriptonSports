@@ -2,6 +2,7 @@ import { injectable, inject } from 'tsyringe';
 
 import AppError from '@shared/errors/AppError';
 
+import Lot from '@modules/lots/infra/typeorm/entities/Lot';
 import Product from '@modules/lots/infra/typeorm/entities/Product';
 
 import ILotRepository from '../repositories/ILotRepository';
@@ -15,7 +16,7 @@ interface IRequest {
 }
 
 interface IResponse {
-  lot: number;
+  lot: Lot;
   product: Product;
 }
 

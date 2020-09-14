@@ -20,6 +20,11 @@ export class CreateLot1597175075778 implements MigrationInterface {
           },
 
           {
+            name: 'expiration_date',
+            type: 'varchar',
+          },
+
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
