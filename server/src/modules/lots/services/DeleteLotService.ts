@@ -11,20 +11,22 @@ class DeleteLotService {
     private lotRepository: ILotRepository
   ) {}
 
-  public async execute(id: number): Promise<void> {
-    const lot = await this.lotRepository.findById(id);
+  public async execute(lot: number): Promise<void> {
+    const lotExists = await this.lotRepository.findByLot(lot);
 
-    if (!lot) {
+    if (!lotExists) {
       throw new AppError('Sorry, lot not found!');
     }
 
-    const product = await this.lotRepository.findProductById(lot.product_id);
+    const { product_id } = lotExists;
+
+    const product = await this.lotRepository.findProductById(product_id);
 
     if (!product) {
       throw new AppError('Sorry, product not found!');
     }
 
-    await this.lotRepository.destroy(lot, product);
+    await this.lotRepository.destroy(lotExists, product);
   }
 }
 

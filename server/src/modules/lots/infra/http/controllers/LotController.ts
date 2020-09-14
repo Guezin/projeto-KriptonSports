@@ -73,12 +73,12 @@ class LotController {
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
-    const { id } = request.params;
+    const { id: lot } = request.params;
     const deleteLot = container.resolve(DeleteLotService);
 
-    await deleteLot.execute(Number(id));
+    await deleteLot.execute(Number(lot));
 
-    return response.status(200).send();
+    return response.status(200).json();
   }
 }
 
