@@ -16,7 +16,7 @@ export default interface ILotRepository {
   findByLot(lot: number): Promise<Lot | undefined>;
   findProductById(product_id: string): Promise<Product | undefined>;
   findByProductCode(product_code: number): Promise<Product | undefined>;
-  searchTarget({ type, target }: ISearchDTO): Promise<void>;
+  searchTarget({ type, target }: ISearchDTO): Promise<Lot[] | undefined>;
   save({ lot, product }: ISaveDTO): Promise<void>;
   destroy(lot: Lot, product: Product): Promise<void>;
 }

@@ -1,4 +1,10 @@
-import { getConnection, getRepository, Repository, Connection } from 'typeorm';
+import {
+  getConnection,
+  getRepository,
+  Repository,
+  Connection,
+  In,
+} from 'typeorm';
 
 import AppError from '@shared/errors/AppError';
 
@@ -96,24 +102,33 @@ class LotRepository implements ILotRepository {
     return product;
   }
 
-  public async searchTarget({ type, target }: ISearchDTO): Promise<void> {
+  public async searchTarget({
+    type,
+    target,
+  }: ISearchDTO): Promise<Lot[] | undefined> {
     switch (type) {
       case 'lot':
-        const result = await this.ormRepositoryLot.findOne({
+        const searchResultByLot = await this.ormRepositoryLot.find({
           where: { id: Number(target) },
         });
-        console.log(result);
-        break;
+        return searchResultByLot;
       case 'expiration_date':
-        const result2 = await this.ormRepositoryLot.find({
-          where: {
-            product: {
-              expiration_date: target,
-            },
-          },
+        const searchResultByExpirationDate = await this.ormRepositoryLot.find({
+          where: { expiration_date: target },
         });
-        console.log(result2);
-        break;
+        return searchResultByExpirationDate;
+      case 'name':
+        const res = await this.ormRepositoryProduct.find({
+          where: { name: target },
+        });
+
+        const ids = res.map(r => r.id);
+
+        const searchResultByName = await this.ormRepositoryLot.find({
+          product_id: In(ids),
+        });
+
+        return searchResultByName;
     }
   }
 

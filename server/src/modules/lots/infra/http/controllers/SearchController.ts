@@ -5,13 +5,12 @@ import SearchService from '@modules/lots/services/SearchService';
 
 class SearchController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { type } = request.params;
-    const { target } = request.body;
+    const { type, target } = request.body;
     const searchService = container.resolve(SearchService);
 
-    await searchService.execute({ type, target });
+    const lots = await searchService.execute({ type, target });
 
-    return response.json({});
+    return response.json(lots);
   }
 }
 
