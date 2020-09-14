@@ -53,7 +53,7 @@ class LotController {
     const updateLot = container.resolve(UpdateLotService);
 
     const updatedLot = await updateLot.execute({
-      id: Number(id),
+      lot: Number(id),
       name,
       product_code,
       quantity,

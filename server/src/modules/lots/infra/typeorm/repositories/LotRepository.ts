@@ -6,6 +6,7 @@ import Product from '@modules/lots/infra/typeorm/entities/Product';
 import Lot from '@modules/lots/infra/typeorm/entities/Lot';
 
 import ILotDTO from '@modules/lots/dtos/ILotDTO';
+import ISaveDTO from '@modules/lots/dtos/ISaveDTO';
 import ISearchDTO from '@modules/lots/dtos/ISearchDTO';
 import ILotRepository from '@modules/lots/repositories/ILotRepository';
 
@@ -67,12 +68,12 @@ class LotRepository implements ILotRepository {
     return lot;
   }
 
-  public async findById(id: number): Promise<Lot | undefined> {
-    const lot = await this.ormRepositoryLot.findOne({
-      where: { id },
+  public async findByLot(lot: number): Promise<Lot | undefined> {
+    const findLot = await this.ormRepositoryLot.findOne({
+      where: { id: lot },
     });
 
-    return lot;
+    return findLot;
   }
 
   public async findProductById(
@@ -116,7 +117,8 @@ class LotRepository implements ILotRepository {
     }
   }
 
-  public async saveProduct(product: Product): Promise<void> {
+  public async save({ lot, product }: ISaveDTO): Promise<void> {
+    await this.ormRepositoryLot.save(lot);
     await this.ormRepositoryProduct.save(product);
   }
 
