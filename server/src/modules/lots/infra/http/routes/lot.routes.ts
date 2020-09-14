@@ -23,7 +23,7 @@ route.post(
 );
 
 route.put(
-  '/:id',
+  '/:id/update',
   celebrate({
     [Segments.BODY]: Joi.object().keys({
       name: Joi.string().required(),
@@ -36,6 +36,6 @@ route.put(
   lotController.update
 );
 
-route.delete('/:id', lotController.delete);
+route.delete('/:id/delete', lotController.delete);
 
 export default route;

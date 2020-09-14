@@ -52,7 +52,11 @@ class LotController {
     } = request.body;
     const updateLot = container.resolve(UpdateLotService);
 
-    const updatedLot = await updateLot.execute({
+    const {
+      id: lot,
+      expiration_date: expirationDate,
+      product,
+    } = await updateLot.execute({
       lot: Number(id),
       name,
       product_code,
@@ -61,7 +65,11 @@ class LotController {
       expiration_date,
     });
 
-    return response.json(classToClass(updatedLot));
+    return response.json({
+      lot,
+      expiration_date: expirationDate,
+      product,
+    });
   }
 
   public async delete(request: Request, response: Response): Promise<Response> {
