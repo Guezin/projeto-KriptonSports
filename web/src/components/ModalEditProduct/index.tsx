@@ -8,7 +8,7 @@ import {
 } from 'react-icons/ri';
 import { TiSortNumericallyOutline } from 'react-icons/ti';
 
-import { useProduct, IProduct, IProductInfo } from '../../hooks/product';
+import { useLot } from '../../hooks/lot';
 
 import Modal from '../Modal';
 import Input from '../Input';
@@ -16,18 +16,36 @@ import Button from '../Button';
 
 import { CloseModal, Form } from './styles';
 
+interface IProductInfo {
+  name: string;
+  price: string;
+  product_code: number;
+  quantity: number;
+  expiration_date: string;
+}
+
 interface IModalEditProductProps {
   isOpen: boolean;
   setIsOpen: () => void;
-  editingProduct: IProductInfo;
+  editingLot: number;
+  productInfo: IProductInfo;
+}
+
+interface IFormSubmitData {
+  name: string;
+  quantity: number;
+  price: string;
+  product_code: number;
+  expiration_date: string;
 }
 
 const ModalEditProduct: React.FC<IModalEditProductProps> = ({
   isOpen,
   setIsOpen,
-  editingProduct,
+  editingLot,
+  productInfo,
 }) => {
-  const { update } = useProduct();
+  const { update } = useLot();
 
   const handleSubmit = useCallback(
     async ({
@@ -36,22 +54,21 @@ const ModalEditProduct: React.FC<IModalEditProductProps> = ({
       price,
       product_code,
       expiration_date,
-    }: Omit<IProduct, 'id'>) => {
+    }: IFormSubmitData) => {
       await update({
-        lot: editingProduct.lot,
+        lot: editingLot,
+        expiration_date,
         product: {
-          id: editingProduct.product.id,
           name,
           quantity,
           price,
           product_code,
-          expiration_date,
         },
       });
 
       setIsOpen();
     },
-    [editingProduct, update, setIsOpen]
+    [editingLot, update, setIsOpen]
   );
 
   return (
@@ -62,7 +79,7 @@ const ModalEditProduct: React.FC<IModalEditProductProps> = ({
         </button>
       </CloseModal>
 
-      <Form onSubmit={handleSubmit} initialData={editingProduct.product}>
+      <Form onSubmit={handleSubmit} initialData={productInfo}>
         <Input type="text" name="name" icon={RiStore3Line} placeholder="Nome" />
         <Input
           type="number"

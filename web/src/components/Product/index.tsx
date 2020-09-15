@@ -6,24 +6,26 @@ import ModalDeleteProduct from '../ModalDeleteProduct';
 
 import { Container, ContainerButtons, Content } from './styles';
 
-interface IProduct {
-  lot: number;
-  product: {
-    id: string;
-    name: string;
-    price: string;
-    product_code: number;
-    quantity: number;
-    expiration_date: string;
-  };
+export interface IProduct {
+  name: string;
+  price: string;
+  product_code: number;
+  quantity: number;
 }
 
 interface IProductProps {
   product: IProduct;
+  lot: number;
+  expirationDate: string;
   showButtons?: boolean;
 }
 
-const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
+const Product: React.FC<IProductProps> = ({
+  product,
+  lot,
+  expirationDate,
+  showButtons,
+}) => {
   const [modalEditOpen, setModalEditOpen] = useState(false);
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
 
@@ -40,7 +42,7 @@ const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
       <header>
         <h1>
           Lote
-          <span>{prod.lot}</span>
+          <span>{lot}</span>
         </h1>
 
         {showButtons ? (
@@ -56,25 +58,25 @@ const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
         ) : (
           <span>
             <FiCalendar size={20} />
-            {prod.product.expiration_date}
+            {expirationDate}
           </span>
         )}
       </header>
 
       <Content>
-        <p>{prod.product.name}</p>
+        <p>{product.name}</p>
 
         {showButtons ? (
           <p>
             <FiCalendar size={20} />
-            {prod.product.expiration_date}
+            {expirationDate}
           </p>
         ) : (
-          <p>R${prod.product.price}</p>
+          <p>R${product.price}</p>
         )}
 
         <p>
-          <span>{prod.product.quantity}</span>
+          <span>{product.quantity}</span>
           unid.
         </p>
       </Content>
@@ -82,13 +84,17 @@ const Product: React.FC<IProductProps> = ({ product: prod, showButtons }) => {
       <ModalEditProduct
         isOpen={modalEditOpen}
         setIsOpen={toggleEditModal}
-        editingProduct={prod}
+        editingLot={lot}
+        productInfo={{
+          ...product,
+          expiration_date: expirationDate,
+        }}
       />
 
       <ModalDeleteProduct
         isOpen={modalDeleteOpen}
         setIsOpen={toggleDeleteModal}
-        batchToBeDeleted={prod.lot}
+        lotToBeDeleted={lot}
       />
     </Container>
   );

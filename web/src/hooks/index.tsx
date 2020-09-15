@@ -1,11 +1,11 @@
 import React from 'react';
 
 import { AuthProvider } from './auth';
-import { ProductProvider } from './product';
+import { LotProvider } from './lot';
 
 const AppProvider: React.FC = ({ children }) => (
   <AuthProvider>
-    <ProductProvider>{children}</ProductProvider>
+    <LotProvider>{children}</LotProvider>
   </AuthProvider>
 );
 

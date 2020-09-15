@@ -3,8 +3,7 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { FiSearch, FiFilter } from 'react-icons/fi';
 import { Form } from '@unform/web';
 
-import api from '../../services/api';
-import { useProduct, IProduct } from '../../hooks/product';
+import { useLot } from '../../hooks/lot';
 
 import Layout from '../../components/Layout';
 import Input from '../../components/Input';
@@ -12,42 +11,30 @@ import Product from '../../components/Product';
 
 import { Container, Content, Separator } from './styles';
 
-interface IResponseAPIGet {
-  id: number;
-  product: IProduct;
-}
-
 const Products: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
-  const { products, setProducts } = useProduct();
+  const { lots, handleLotsLoading } = useLot();
 
-  const productsToBeShown = useMemo(() => {
-    return products.map(product => (
-      <Product key={product.lot} product={product} showButtons />
+  const lotsToBeShown = useMemo(() => {
+    return lots.map(data => (
+      <Product
+        key={data.lot}
+        product={data.product}
+        lot={data.lot}
+        expirationDate={data.expiration_date}
+        showButtons
+      />
     ));
-  }, [products]);
+  }, [lots]);
 
   useEffect(() => {
     (async () => {
-      try {
-        const { data } = await api.get<IResponseAPIGet[]>('/lots');
+      await handleLotsLoading();
 
-        const result = data.map(item => {
-          return {
-            lot: item.id,
-            product: item.product,
-          };
-        });
-
-        setProducts(result);
-      } catch {
-        alert('Erro ao carregar produtos!');
-      } finally {
-        setLoading(false);
-      }
+      setLoading(false);
     })();
-  }, [setProducts]);
+  }, [handleLotsLoading]);
 
   return (
     <Layout>
@@ -82,7 +69,7 @@ const Products: React.FC = () => {
               />
             </SkeletonTheme>
           ) : (
-            productsToBeShown
+            lotsToBeShown
           )}
         </Content>
       </Container>

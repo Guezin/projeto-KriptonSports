@@ -9,7 +9,7 @@ import { TiSortNumericallyOutline } from 'react-icons/ti';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 
-import { useProduct } from '../../hooks/product';
+import { useLot } from '../../hooks/lot';
 
 import Layout from '../../components/Layout';
 import Input from '../../components/Input';
@@ -26,7 +26,7 @@ interface IFormSubmitData {
 }
 
 const CreateProduct: React.FC = () => {
-  const product = useProduct();
+  const lot = useLot();
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
@@ -34,7 +34,7 @@ const CreateProduct: React.FC = () => {
       { name, quantity, price, product_code, expiration_date }: IFormSubmitData,
       { reset }
     ) => {
-      await product.create({
+      await lot.create({
         name,
         quantity,
         price,
@@ -44,7 +44,7 @@ const CreateProduct: React.FC = () => {
 
       reset();
     },
-    [product]
+    [lot]
   );
 
   return (

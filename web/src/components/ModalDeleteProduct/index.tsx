@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { FiTrash2 } from 'react-icons/fi';
 import { RiCloseLine } from 'react-icons/ri';
 
-import { useProduct } from '../../hooks/product';
+import { useLot } from '../../hooks/lot';
 
 import Modal from '../Modal';
 
@@ -11,21 +11,21 @@ import { CloseModal, Title, DeleteButton } from './styles';
 interface IModalDeleteProductProps {
   isOpen: boolean;
   setIsOpen: () => void;
-  batchToBeDeleted: number;
+  lotToBeDeleted: number;
 }
 
 const ModalDeleteProduct: React.FC<IModalDeleteProductProps> = ({
   isOpen,
   setIsOpen,
-  batchToBeDeleted,
+  lotToBeDeleted,
 }) => {
-  const { deleteBatch } = useProduct();
+  const { deleteLot } = useLot();
 
   const handleDeleteProduct = useCallback(async () => {
-    await deleteBatch(batchToBeDeleted);
+    await deleteLot(lotToBeDeleted);
 
     setIsOpen();
-  }, [batchToBeDeleted, deleteBatch, setIsOpen]);
+  }, [lotToBeDeleted, deleteLot, setIsOpen]);
 
   return (
     <Modal
