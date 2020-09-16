@@ -22,6 +22,7 @@ const FilterProvider: React.FC = ({ children }) => {
 
   const handleRemoveFilter = useCallback(() => {
     setSelectedFilter(false);
+    setFilterValue('');
   }, []);
 
   const handleSearhValue = useCallback(

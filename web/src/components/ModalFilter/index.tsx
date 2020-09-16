@@ -31,6 +31,7 @@ const ModalFilter: React.FC<IModalFilterProps> = ({ isOpen, setIsOpen }) => {
 
   const handleCloseModal = useCallback(() => {
     setIsOpen();
+    setSelected('');
     handleRemoveFilter();
   }, [handleRemoveFilter, setIsOpen]);
 
