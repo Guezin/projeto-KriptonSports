@@ -1,20 +1,29 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useMemo, useEffect, useState, useCallback } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import { FiSearch, FiFilter } from 'react-icons/fi';
+import { FaFilter } from 'react-icons/fa';
 import { Form } from '@unform/web';
 
 import { useLot } from '../../hooks/lot';
+import { useFilter } from '../../hooks/filter';
 
 import Layout from '../../components/Layout';
 import Input from '../../components/Input';
 import Product from '../../components/Product';
+import ModalFilter from '../../components/ModalFilter';
 
 import { Container, Content, Separator } from './styles';
 
+interface IFormSubmitData {
+  search_value: string;
+}
+
 const Products: React.FC = () => {
   const [loading, setLoading] = useState(true);
+  const [modalStatus, setModalStatus] = useState(false);
 
   const { lots, handleLotsLoading } = useLot();
+  const { handleSearhValue, selectedFilter } = useFilter();
 
   const lotsToBeShown = useMemo(() => {
     return lots.map(data => (
@@ -27,6 +36,17 @@ const Products: React.FC = () => {
       />
     ));
   }, [lots]);
+
+  const toggleModal = useCallback(() => {
+    setModalStatus(!modalStatus);
+  }, [modalStatus]);
+
+  const handleSubmit = useCallback(
+    ({ search_value }: IFormSubmitData) => {
+      handleSearhValue(search_value);
+    },
+    [handleSearhValue]
+  );
 
   useEffect(() => {
     (async () => {
@@ -43,17 +63,25 @@ const Products: React.FC = () => {
           <fieldset>
             <legend>Produtos</legend>
 
-            <Form onSubmit={() => {}}>
+            <Form onSubmit={handleSubmit}>
               <Input
                 type="text"
-                name="search"
+                name="search_value"
                 icon={FiSearch}
                 placeholder="Buscar..."
               />
 
               <Separator />
 
-              <FiFilter size={24} color="#fff" />
+              <button type="button" onClick={toggleModal}>
+                {selectedFilter ? (
+                  <FaFilter size={24} color="#fff" />
+                ) : (
+                  <FiFilter size={24} color="#fff" />
+                )}
+              </button>
+
+              <ModalFilter isOpen={modalStatus} setIsOpen={toggleModal} />
             </Form>
           </fieldset>
 

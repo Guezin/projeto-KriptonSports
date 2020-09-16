@@ -21,6 +21,11 @@ export const Content = styled.div`
 
       display: flex;
       align-items: center;
+
+      button {
+        border: 0;
+        background: none;
+      }
     }
   }
 `;

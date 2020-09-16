@@ -53,11 +53,15 @@ export default createGlobalStyle`
     --color-button-text: #fff;
     --color-button-edit: #1D68D8;
     --color-button-delete: #E41414;
+    --color-button-select: #1D68D8;
     --color-input-background: #262424;
     --color-input-border-primary: #262424;
     --color-input-border-focus: #F4EDE8;
     --color-input-border-error: #FE1212;
     --color-input-placeholder: #666360;
+    --color-filter-in-checkbox: #1D68D8;
+    --color-filter-out-checkbox: #666360;
+
 
   }
 

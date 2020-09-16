@@ -46,15 +46,13 @@ const LotProvider: React.FC = ({ children }) => {
       expiration_date,
     }: ICreateProps) => {
       try {
-        const { data } = await api.post('/lots', {
+        await api.post('/lots', {
           name,
           quantity: Number(quantity),
           price,
           product_code: Number(product_code),
           expiration_date,
         });
-
-        setLots(oldState => [...oldState, data]);
 
         alert('Produto adicionado com sucesso!');
       } catch {
