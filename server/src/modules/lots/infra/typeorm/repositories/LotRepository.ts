@@ -111,18 +111,26 @@ class LotRepository implements ILotRepository {
         const searchResultByLot = await this.ormRepositoryLot.find({
           where: { id: Number(target) },
         });
+
+        if (!searchResultByLot.length) return undefined;
+
         return searchResultByLot;
       case 'expiration_date':
         const searchResultByExpirationDate = await this.ormRepositoryLot.find({
           where: { expiration_date: target },
         });
+
+        if (!searchResultByExpirationDate.length) return undefined;
+
         return searchResultByExpirationDate;
       case 'name':
-        const result = await this.ormRepositoryProduct.find({
+        const productsFounds = await this.ormRepositoryProduct.find({
           where: { name: target },
         });
 
-        const productsIds = result.map(product => product.id);
+        if (!productsFounds.length) return undefined;
+
+        const productsIds = productsFounds.map(product => product.id);
 
         const searchResultByName = await this.ormRepositoryLot.find({
           product_id: In(productsIds),
