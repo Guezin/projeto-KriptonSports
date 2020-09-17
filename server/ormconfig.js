@@ -1,6 +1,6 @@
 module.exports = {
   type: 'postgres',
-  url: process.env.APP_DATABASE_URL,
+  url: process.env.DATABASE_URL,
   entities: [
     `./${process.env.APP_PROD_OR_DEV}/modules/**/infra/typeorm/entities/*.${process.env.APP_EXTENSION}`,
   ],
