@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useCallback } from 'react';
 
 import api from '../services/api';
+import { useLot } from '../hooks/lot';
 
 interface IFilterProviderProps {
   selectedFilter: boolean;
@@ -15,6 +16,8 @@ const FilterProvider: React.FC = ({ children }) => {
   const [selectedFilter, setSelectedFilter] = useState(false);
   const [filterValue, setFilterValue] = useState('');
 
+  const { setLotsFoundBySearch } = useLot();
+
   const handleSelectFilter = useCallback((value: string) => {
     setSelectedFilter(true);
     setFilterValue(value);
@@ -23,7 +26,8 @@ const FilterProvider: React.FC = ({ children }) => {
   const handleRemoveFilter = useCallback(() => {
     setSelectedFilter(false);
     setFilterValue('');
-  }, []);
+    setLotsFoundBySearch([]);
+  }, [setLotsFoundBySearch]);
 
   const handleSearhValue = useCallback(
     async (value: string) => {
@@ -32,9 +36,11 @@ const FilterProvider: React.FC = ({ children }) => {
         target: value,
       });
 
-      console.log(data);
+      if (selectedFilter) {
+        setLotsFoundBySearch(data);
+      }
     },
-    [filterValue]
+    [filterValue, selectedFilter, setLotsFoundBySearch]
   );
 
   return (

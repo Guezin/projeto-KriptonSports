@@ -28,6 +28,8 @@ interface ICreateProps {
 interface ILotProviderProps {
   lots: ILot[];
   setLots: React.Dispatch<React.SetStateAction<ILot[]>>;
+  lotsFoundBySearch: ILot[];
+  setLotsFoundBySearch: React.Dispatch<React.SetStateAction<ILot[]>>;
   create: (lotData: ICreateProps) => Promise<void>;
   update: (data: ILot) => Promise<void>;
   deleteLot: (lot: number) => Promise<void>;
@@ -36,6 +38,7 @@ interface ILotProviderProps {
 
 const LotProvider: React.FC = ({ children }) => {
   const [lots, setLots] = useState<ILot[]>([]);
+  const [lotsFoundBySearch, setLotsFoundBySearch] = useState<ILot[]>([]);
 
   const create = useCallback(
     async ({
@@ -124,6 +127,8 @@ const LotProvider: React.FC = ({ children }) => {
         handleLotsLoading,
         lots,
         setLots,
+        lotsFoundBySearch,
+        setLotsFoundBySearch,
       }}
     >
       {children}

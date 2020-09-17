@@ -22,11 +22,13 @@ const Products: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [modalStatus, setModalStatus] = useState(false);
 
-  const { lots, handleLotsLoading } = useLot();
+  const { lots, handleLotsLoading, lotsFoundBySearch } = useLot();
   const { handleSearhValue, selectedFilter } = useFilter();
 
   const lotsToBeShown = useMemo(() => {
-    return lots.map(data => (
+    const result = lotsFoundBySearch.length ? lotsFoundBySearch : lots;
+
+    return result.map(data => (
       <Product
         key={data.lot}
         product={data.product}
@@ -35,7 +37,7 @@ const Products: React.FC = () => {
         showButtons
       />
     ));
-  }, [lots]);
+  }, [lots, lotsFoundBySearch]);
 
   const toggleModal = useCallback(() => {
     setModalStatus(!modalStatus);
