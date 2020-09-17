@@ -31,13 +31,17 @@ const FilterProvider: React.FC = ({ children }) => {
 
   const handleSearhValue = useCallback(
     async (value: string) => {
-      const { data } = await api.post('/search', {
-        type: filterValue,
-        target: value,
-      });
+      try {
+        const { data } = await api.post('/search', {
+          type: filterValue,
+          target: value,
+        });
 
-      if (selectedFilter) {
-        setLotsFoundBySearch(data);
+        if (selectedFilter) {
+          setLotsFoundBySearch(data);
+        }
+      } catch {
+        alert('Nenhum resultado encontrado para sua busca!');
       }
     },
     [filterValue, selectedFilter, setLotsFoundBySearch]

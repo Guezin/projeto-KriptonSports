@@ -9,6 +9,10 @@ export const Container = styled.div`
     display: flex;
     align-items: center;
   }
+
+  @media (min-width: 750px) {
+    padding: 0 3.2rem;
+  }
 `;
 
 export const CloseModal = styled.div`
@@ -55,6 +59,13 @@ export const Content = styled.main`
     border-radius: 0.8rem;
     color: var(--color-button-text);
     background-color: var(--color-button-select);
+  }
+
+  @media (min-width: 1020px) {
+    button {
+      width: 80%;
+      margin-left: 10%;
+    }
   }
 `;
 

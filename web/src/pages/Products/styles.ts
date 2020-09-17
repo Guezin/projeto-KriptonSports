@@ -28,6 +28,18 @@ export const Content = styled.div`
       }
     }
   }
+
+  @media (min-width: 750px) {
+    fieldset {
+      width: 70%;
+    }
+  }
+
+  @media (min-width: 1020px) {
+    fieldset {
+      width: 60%;
+    }
+  }
 `;
 
 export const Separator = styled.div`
